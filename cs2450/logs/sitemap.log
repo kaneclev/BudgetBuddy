@@ -1,0 +1,58 @@
+<li><a href="https://kmclevel.w3.uvm.edu/cs2450/index.php">index.php</a></li><li><a href="https://kmclevel.w3.uvm.edu/cs2450/wireframe.html">wireframe.html</a></li><li><a href="https://kmclevel.w3.uvm.edu/cs2450/tablet-wireframe.html">tablet-wireframe.html</a></li><li class="dir">ADMIN<ul class="indent"><li><a href="https://kmclevel.w3.uvm.edu/cs2450/ADMIN/code-viewer.php">code-viewer.php</a></li><li><a href="https://kmclevel.w3.uvm.edu/cs2450/ADMIN/table-viewer.php">table-viewer.php</a></li><li><a href="https://kmclevel.w3.uvm.edu/cs2450/ADMIN/admin.css">admin.css</a></li></ul></li>
+
+
+
+
+
+
+
+
+
+
+
+
+ NEW ASDASDASDASDASDASDASD 
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff; 
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 5px 0;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .dir { 
+            font-weight: bold;
+        }
+        .indent { 
+            padding-left: 20px;	 
+        }
+    </style>
+</head>
+<body>
+    <h1>Sitemap</h1>
+    <h2 id="greet-by-time"></h2>
+    <script src="assets/js/sitemap.js"></script>
+    <ul id="dynamic-sitemap">
+        <!-- Dynamic content will be inserted here -->
+    </ul>
+</body>
+</html>
