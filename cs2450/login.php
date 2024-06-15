@@ -11,8 +11,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
-    // Replace with your actual user authentication logic
+    // skeleton logic for now, going to implement a way to retrieve stuff from the database after. 
     if ($username == 'user' && $password == 'pass') {
         $_SESSION['logged_in'] = true;
         header('Location: index.php');
