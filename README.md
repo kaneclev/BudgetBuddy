@@ -1,7 +1,6 @@
 # Budget Buddy
 ## My CS2450 Final Project
 
-### Requirement Map
 
 ### Website Requirements
 Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs1080/assignments/final.php)
