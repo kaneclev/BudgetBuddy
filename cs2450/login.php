@@ -1,5 +1,6 @@
 <?php
 session_start();
+include($_SERVER['DOCUMENT_ROOT'] . '/cs2450/config.php');
 
 // Check if the user is already logged in
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
@@ -37,21 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WIT
     exit;
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Budget Buddy</title>
-    <link rel="stylesheet" href="includes/css/styles.css">
-</head>
-<body>
-    <header class="main-header">
-        <div class="header-content">
-            <h1>Budget Buddy</h1>
-        </div>
-    </header>
+<?php include(ROOT_PATH . 'includes/top.php'); ?> 
     <main>
         <div class="login-container">
             <h2>Log In</h2>

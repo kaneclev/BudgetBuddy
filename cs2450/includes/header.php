@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Budget Buddy</title>
-    <link rel="stylesheet" href="includes/styles.css">
+    <base href="/cs2450/">
+    <link rel="stylesheet" href="/cs2450/includes/styles.css">
 </head>
 <body>
     <header class="main-header">
