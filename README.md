@@ -3,7 +3,7 @@
 
 ### Requirement Map
 
-<u>CS1080 Requirements:</u>
+### Website Requirements
 Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs1080/assignments/final.php)
 
 **File Requirements**
