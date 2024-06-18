@@ -5,9 +5,21 @@
 ### Website Requirements
 Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs1080/assignments/final.php)
 
+**JavaScript Requirements**
+- [ ] All form sanitization done in javascript
+- [ ] Use javascript to work with an array in some fashion
+- [ ] Use javascript to work with ajax in some fashion
+- [ ] Use javascript (or JQuery) to work with images, the DOM, JSON files, and make notes in your sitemap where this occurs.
+
 **File Requirements**
 - [x] Minimum of 4 web pages
     - [ ] 200 Words Per Page for at least 3 pages (login page doesn't need this)
+- The following should be included in every page:
+    - [ ] top.php
+    - [ ] header.php included in top
+    - [ ] nav.php included in top 
+    - [ ] connect-DB.php included in top
+    - [ ] footer.php
 - [ ] A sitemap (sitemap.php) which reflects the final project
     - [ ] Sitemap pushed to repo (commit message: Final project: updated site map)
 - [ ] Wireframes for the site linked on sitemap
@@ -21,12 +33,12 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
     - [ ] nav.php should have an if-statement to print the current active page
 - [ ] footer.php should reflect final project
 - [ ] connect-DB.php
-    - [ ] connect-DB.php should be included in top.php
 - [ ] css file has styles for the active page (assuming this means there should be styling for all my pages)
 - [ ] detail.php - has detail page 1 and 2 (not sure what this is yet, maybe an explanation of what my site is?)
 
 **Form Requirements**
 - [ ] form.php - a file defining form interactions that I can use around in different places around the site
+- [ ] All forms must provide descriptive feedback about what they're doing once submitted. 
 - [ ] a text box for the user's email address
     - [ ] two additional text boxes
 - Choose at least two of the following: 
@@ -36,6 +48,7 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
     - [ ] Include a text area
 
 **Validation Requirements**
+- [ ] *All sanitization should be done in JavaScript*
 - [ ] Sanitize all data in the same order the fields appear on the form
 - [ ] Your form should use client side validation as described in the text for HTML5 form validation attributes.
 - [ ] Check for empty for all required inputs.
@@ -43,7 +56,7 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
 
 **Form Feature Requirements**
 - [ ] You must initialize your PHP default variables in the same order they appear on the form
-- [ ] All widgets must be sticky
+- [ ] All widgets (forms) must be sticky
 - [ ] The 'email' form must email the person who fills it out
     - [ ] The 'from' address must be my email address so he can reply to it 
 
