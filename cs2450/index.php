@@ -1,5 +1,4 @@
 <?php
-include('/cs2450/config.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/cs2450/config.php');
 include(ROOT_PATH . 'includes/top.php');
 error_reporting(E_ALL);
