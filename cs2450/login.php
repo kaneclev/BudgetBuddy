@@ -1,5 +1,4 @@
 <?php
-session_start();
 include($_SERVER['DOCUMENT_ROOT'] . '/cs2450/config.php');
 
 // Check if the user is already logged in
@@ -44,21 +43,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WIT
             <h2>Log In</h2>
             <?php if (isset($error)): ?>
                 <p class="error"><?php echo $error; ?></p>
-            <?php endif; ?>
-            <form id="loginForm" action="login.php" method="POST">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                
-                <button type="submit">Log In</button>
-            </form>
-            <p class="signup-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
+            <?php endif; ?>       
+			<?php
+				include(ROOT_PATH . 'includes/form.php');
+				renderFormStart('loginForm', 'login.php', 'POST'); // use form.php to start the form
+				renderTextInputField('text', 'username', 'username', 'Username:');
+				renderTextInputField('password', 'password', 'password', 'Password:');
+				renderFormEnd('Log In');
+			?>   
         </div>
-    </main>
-    <?php include('includes/footer.php'); ?>
     <script src="js/login.js"></script>
-</body>
-</html>
+    </main>
+<?php include(ROOT_PATH . 'includes/footer.php'); ?>
 

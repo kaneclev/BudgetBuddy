@@ -20,7 +20,7 @@
 // So, to follow our plan, we start with the top of the 'shell' of each form
 function renderFormStart($formId, $action, $method) {
 	// Init the starting form tag with the args passed to us
-	echo "<form id='$formid' action='$action' method='$method'>";
+	echo "<form id='$formId' action='$action' method='$method'>";
 }
 
 /*
