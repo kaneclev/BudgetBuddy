@@ -8,18 +8,18 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
 **JavaScript Requirements**
 - [ ] All form sanitization done in javascript
 - [ ] Use javascript to work with an array in some fashion
-- [ ] Use javascript to work with ajax in some fashion
+- [x] Use javascript to work with ajax in some fashion
 - [ ] Use javascript (or JQuery) to work with images, the DOM, JSON files, and make notes in your sitemap where this occurs.
 
 **File Requirements**
 - [x] Minimum of 4 web pages
     - [ ] 200 Words Per Page for at least 3 pages (login page doesn't need this)
 - The following should be included in every page:
-    - [ ] top.php
-    - [ ] header.php included in top
-    - [ ] nav.php included in top 
+    - [x] top.php
+    - [x] header.php included in top
+    - [x] nav.php included in top 
     - [ ] connect-DB.php included in top
-    - [ ] footer.php
+    - [x] footer.php
 - [ ] A sitemap (sitemap.php) which reflects the final project
     - [ ] Sitemap pushed to repo (commit message: Final project: updated site map)
 - [ ] Wireframes for the site linked on sitemap
@@ -74,20 +74,20 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
     - [ ] Identify the page that displays data on your sitemap.
 
 **CSS/Styling Requirements**
-- [ ] Pick a grid or flex-box design for your layout for all pages. Only use one of them. It is wrong if you use both grid and flex.
-- [ ] Link to the desktop CSS file (custom.css) with the link element.
-- [ ] Link to the tablet CSS file with the link element.
-- [ ] Link to the phone CSS file with the link element.
-- [ ] Create the CSS for your desktop design, custom.css.
-    - [ ] You are graded on the quality of your desktop design.
-- [ ] Create the CSS for your phone design.
-    - [ ] You are graded on the quality of your phone design.
-- [ ] Create the CSS for your tablet design.
-    - [ ] You are graded on the quality of your tablet design.
-- [ ] Do not duplicate rules in your tablet CSS that are already in custom.css or phone.css.
+- [x] Pick a grid or flex-box design for your layout for all pages. Only use one of them. It is wrong if you use both grid and flex.
+- [x] Link to the desktop CSS file (custom.css) with the link element.
+- [x] Link to the tablet CSS file with the link element.
+- [x] Link to the phone CSS file with the link element.
+- [x] Create the CSS for your desktop design, custom.css.
+    - [x] You are graded on the quality of your desktop design.
+- [x] Create the CSS for your phone design.
+    - [x] You are graded on the quality of your phone design.
+- [x] Create the CSS for your tablet design.
+    - [x] You are graded on the quality of your tablet design.
+- [x] Do not duplicate rules in your tablet CSS that are already in custom.css or phone.css.
 - [ ] Don't let text get longer than 70 to 80 characters on each line.
     - Generally, this is for the body element.
-- [ ] Add the viewport tag to the head section of each page.
+- [x] Add the viewport tag to the head section of each page.
 
 **Etc. Requirements**
 - [ ] Create a 1-minute walkthrough video describing my project (Budget Buddy)
