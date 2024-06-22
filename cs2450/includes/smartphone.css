@@ -1,0 +1,38 @@
+@media (max-width: 480px) {
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header-content h1 {
+        font-size: 24px;
+    }
+
+    .login-signup-btn {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .main-header {
+        padding: 15px 0;
+    }
+
+    .dashboard {
+        padding: 5px;
+    }
+
+    .synopsis, .graphic {
+        margin: 5px 0;
+        padding: 5px;
+    }
+
+    nav ul {
+	text-align: center;
+    }
+
+    nav ul li {
+        display: inline-block;
+        margin: 0 5px;
+    }
+}
+
