@@ -17,7 +17,6 @@ body {
 main {
 	flex: 1;
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -171,65 +170,88 @@ footer {
 }
 
 /* Login page styling */
-.login-container {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	width: 300px;
-	margin: 50px auto;
-	text-align: center;
-}
 
-.login-container h2 {
-	margin-bottom: 20px;
-}
 
-.login-container form {
+
+.forms-container {
 	display: flex;
-	flex-direction: column;
+    justify-content: center;
+	align-items: flex-start;
+	gap: 20px;
+	margin-top: 50px;
 }
-
-.login-container label {
-	text-align: left;
-	margin-bottom: 5px;
+/* 'OR' Separator Styling */
+.or-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
 	font-weight: bold;
+	padding: 0 10px;
+	color: #333;
+
 }
 
-.login-container input {
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid #ccc;
-	border-radius: 3px;
+/* Login page styling */
+.login-container,
+.signup-container {
+	background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    height: 400px;
+	width: 300px;
+    margin: 0 20px; /* Space between the forms */
+    text-align: center;
 }
 
-.login-container button {
-	padding: 10px;
-	background-color: #007BFF;
-	border: none;
-	border-radius: 3px;
-	color: #fff;
-	font-size: 16px;
-	cursor: pointer;
+.login-container h2,
+.signup-container h2 {
+    margin-bottom: 20px;
 }
 
-.login-container button:hover {
-	background-color: #0056b3;
+.login-container form,
+.signup-container form {
+    display: flex;
+    flex-direction: column;
+	height: 100%;
 }
 
-.login-container .signup-link {
-	margin-top: 10px;
+.login-container label,
+.signup-container label {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-container input,
+.signup-container input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container button,
+.signup-container button {
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+	margin-bottom: auto;
+}
+
+.login-container button:hover,
+.signup-container button:hover {
+    background-color: #0056b3;
 }
 
 .error {
-	color: red;
-	margin-bottom: 10px;
+    color: red;
+    margin-bottom: 10px;
 }
-
-
-
-
-
 
 
 
