@@ -1,8 +1,34 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let curr_page = window.location.pathname;
-    const root = '/cs2450/'; // Ensure the leading slash is included to match the pathname correctly
-    console.log(curr_page); 
-    switch (curr_page) {
+
+// definitions for global scope vars
+let content;
+let root;
+let root_filepath;
+// globally define some object that i can use like a map for k-v pairs for my sess data
+let sess_map = {};
+
+// function for retrieving session variables via ajax from get-session-data.php
+async function getSessionData() {
+	data_path = root_filepath + 'utils/get-session-data.php';
+	return fetch(data_path)
+		.then(response => response.json())
+		.then(data => data);
+
+}
+
+// function for loading in elements from the json file from getSessionData()
+
+
+document.addEventListener('DOMContentLoaded', async function() {
+	content = document.getElementById('content');
+	root_filepath = content.getAttribute('root_path');
+	root = '/cs2450/';
+	let curr_page = window.location.pathname;
+	
+	sess_map = await getSessionData(); 	
+ 
+	console.log(curr_page); 
+    
+	switch (curr_page) {
         case root:
             loadDashboard(curr_page);
             break;
@@ -20,23 +46,42 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function loadDashboard(curr_page) {
     console.log("loadDashboard function is being called"); // Debug
-    const content = document.getElementById('content');
     if (content) {
         console.log("Content div found"); // Debug
-        content.innerHTML = `
-            <div class="dashboard">
-                <div class="header">
-                    <h2>Dashboard</h2>
-                    <button class="login-signup-btn" id="loginSignupButton">Login/Sign Up</button>
+		if (logged_in) {
+			const username = 
+			content.innerHTML = `
+				<div class="dashboard">
+                    <div class="header">
+                        <h2>Welcome Back!</h2>
+                        <button class="logout-btn" id="logoutButton">Log Out</button>
+                    </div>
+                    <div class="synopsis">
+                        <p>Overview of your financial planner</p>
+                    </div>
+                    <div class="graphic" id="dashboardGraphic">
+                        <p>*insert relevant graphic*</p>
+                    </div>
                 </div>
-                <div class="synopsis">
-                    <p>Synopsis of the purpose and utility of the financial planner</p>
-                </div>
-                <div class="graphic" id="dashboardGraphic">
-                    <p>*insert relevant graphic*</p>
-                </div>
-            </div>
-        `;
+            `;	
+
+
+		} else {
+			content.innerHTML = `
+				<div class="dashboard">
+					<div class="header">
+						<h2>Dashboard</h2>
+						<button class="login-signup-btn" id="loginSignupButton">Login/Sign Up</button>
+					</div>
+					<div class="synopsis">
+						<p>Synopsis of the purpose and utility of the financial planner</p>
+					</div>
+					<div class="graphic" id="dashboardGraphic">
+						<p>*insert relevant graphic*</p>
+					</div>
+				</div>
+			`;
+		}
         addEventListeners(curr_page); // Pass curr_page to the function
     }
 }

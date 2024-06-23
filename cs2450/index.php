@@ -6,10 +6,10 @@ ini_set('display_errors', 1);
 ?>
 
 <main>
-    <div id="content">
-	<script>
-	<!-- Content will be loaded via my scripts.js function. -->
-	</script>
+    <div id="content" root_path="<?php echo ROOT_PATH ?>">
+		<script>
+		<!-- Content will be loaded via my scripts.js function. -->
+		</script>
     </div>
 </main>
 
