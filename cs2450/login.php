@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($password !== $confirm_password) {
         $errors[] = 'The passwords do not match.';
     }
-	error_log('Errors: ' . print_r($errors, true));
     if (empty($errors)) {
         // use password_hash builtin for hashing the password
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
@@ -62,6 +61,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		header('Location: login.php');
         exit();
     }
+} else if (isset($_POST['username'], $_POST['password'])) {
+	try {
+		$username = trim($_POST['username']);
+		$password = trim($_POST['password']);
+		$stmt = $pdo->prepare('SELECT id, password FROM users WHERE username = :username');
+		$stmt->execute([':username' => $username]);
+		$user = $stmt->fetch();
+
+		// now we check if the username is present in the database, and if the given password matches.
+		if ($user && password_verify($password, $user['password'])) {
+			// then the $user record is present in the db and the password matches!
+			// set the session id for when we go to pull records from other tables later on...
+			$_SESSION['user_id'] = $user['id'];
+			header('Location: dashboard.php');	
+
+		} else {
+			$errors[] = 'Invalid username or password.';
+		}	
+	} catch (PDOException $e) {
+		$errors[] = 'There was a problem logging in. Try again later.';
+		error_log($e->getMessage());
+	}
+	if (!empty($errors)) { // Then there was at least one issue logging in.
+		// Assign login error to the k-v pair in $_SESSION  
+		$_SESSION['login_error'] = $errors;
+	}
 }
 ?>
 
@@ -84,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-container">
             <h2>Log In</h2>
             <?php if (isset($login_error)): ?>
-                <p class="error"><?php echo $error; ?></p>
+                <p class="error"><?php echo $login_error; ?></p>
             <?php endif; ?>       
 			<?php
 				include(ROOT_PATH . 'includes/form.php');

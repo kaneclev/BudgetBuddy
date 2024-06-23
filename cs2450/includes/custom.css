@@ -5,9 +5,11 @@ html, body {
 	margin: 0;
 	padding: 0; 
 	font-family: Arial, sans-serif;
+	box-sizing: border-box;
 }
 body {
 	height: 100%;
+	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
@@ -55,6 +57,8 @@ button:hover {
 	padding: 10px 0;
 	text-align: center;
 	color: white;
+	z-index: 1000;
+	position: relative;
 }
 
 .header-content {
@@ -63,7 +67,7 @@ button:hover {
 	align-items: center;
 	width: 80%;
 	margin: 0 auto;
-	max-width: 1200px;
+	
 }
 
 .header-content h1 {
@@ -72,6 +76,65 @@ button:hover {
 	font-family: 'Montserrat', sans-serif;
 	color: white;
 }
+
+
+/* Navbar (included in top) styling */
+nav {
+	width: 100%;
+	background-color: #06401d;
+	color: black;
+	text-align: center;
+	padding: 10px 0;
+	z-index: 1000;
+	margin-top: auto;
+	position: relative;
+}
+
+nav ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+nav ul li {
+	display: inline;
+	margin: 0 10px;
+}
+
+nav ul li a {
+	text-decoration: none;
+	color: white;
+}
+
+nav ul li a.active {
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+/* Footer styling */
+footer {
+	width: 100%;
+	background-color: #004d00;
+	color: white;
+	text-align: left;
+	padding: 10px 0;
+	z-index: 1000;
+}
+
+.siteMapButton {
+	background-color: #666b67;
+	border: 1px solid black;
+	color: light-gray;
+	font-size: 12px;
+	margin: auto 5px;
+	display: inline-block;
+	padding: 15px 15px;
+}
+
+
+
+
+/* Dashboard Stying */
 
 .login-signup-btn {
 	padding: 10px 20px;
@@ -87,7 +150,6 @@ button:hover {
 	background-color: darkred;
 }
 
-/* Dashboard Styling (header, graphic, etc.) */
 .dashboard {
 	background-color: #fff;
 	padding: 20px;
@@ -119,55 +181,6 @@ button:hover {
 }
 
 
-
-/* Navbar (included in top) styling */
-nav {
-	width: 100%;
-	background-color: #004d00;
-	color: black;
-	text-align: center;
-	padding: 10px 0;
-}
-
-nav ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-nav ul li {
-	display: inline;
-	margin: 0 10px;
-}
-
-nav ul li a {
-	text-decoration: none;
-	color: white;
-}
-
-nav ul li a.active {
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-/* Footer styling */
-footer {
-	width: 100%;
-	background-color: #004d00;
-	color: white;
-	text-align: left;
-	padding: 10px 0;
-}
-
-.siteMapButton {
-	background-color: #666b67;
-	border: 1px solid black;
-	color: light-gray;
-	font-size: 12px;
-	margin: auto 5px;
-	display: inline-block;
-	padding: 15px 15px;
-}
 
 /* Login page styling */
 
@@ -202,6 +215,10 @@ footer {
 	width: 300px;
     margin: 0 20px; /* Space between the forms */
     text-align: center;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 20px;
+	z-index: 10;
 }
 
 .login-container h2,

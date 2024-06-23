@@ -65,5 +65,20 @@ function addEventListeners(curr_page) {
 			console.log("loginSignupButton not found"); // another debug
 			}													 
 		}
-          }
+}
+
+window.addEventListener('scroll', function() {
+    var loginContainer = document.querySelector('.login-container');
+    var signupContainer = document.querySelector('.signup-container');
+    var headerHeight = document.querySelector('.main-header').offsetHeight;
+	var navbarHeight = document.querySelector('.nav').offsetHeight;
+
+    if (window.scrollY >= headerHeight || window.scrollY >= navbarHeight) {
+        loginContainer.classList.add('fixed');
+        signupContainer.classList.add('fixed');
+    } else {
+        loginContainer.classList.remove('fixed');
+        signupContainer.classList.remove('fixed');
+    }
+});
     
