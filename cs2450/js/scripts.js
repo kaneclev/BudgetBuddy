@@ -1,70 +1,62 @@
 
 // definitions for global scope vars
-let content;
-let root;
-let root_filepath;
 // globally define some object that i can use like a map for k-v pairs for my sess data
-let sess_map = {};
+let sess_map;
 
 // function for retrieving session variables via ajax from get-session-data.php
-async function getSessionData() {
-	data_path = root_filepath + 'utils/get-session-data.php';
-	return fetch(data_path)
-		.then(response => response.json())
-		.then(data => data);
 
+async function getSessionData() {
+    const data_path = 'utils/get-session-data.php';
+    const response = await fetch(data_path);
+    const data = await response.json();
+    return data;
 }
+
 
 // function for loading in elements from the json file from getSessionData()
 
 
 document.addEventListener('DOMContentLoaded', async function() {
-	content = document.getElementById('content');
-	root_filepath = content.getAttribute('root_path');
-	root = '/cs2450/';
+	let content = document.getElementById('content');
+	let root_filepath = content.getAttribute('root_path');
 	let curr_page = window.location.pathname;
-	
+	let root = '/cs2450/';	
 	sess_map = await getSessionData(); 	
  
-	console.log(curr_page); 
-    
-	switch (curr_page) {
-        case root:
-            loadDashboard(curr_page);
-            break;
-	case root + 'index.php':
-	    
-	    loadDashboard(curr_page);
-        case root + 'login.php':
-            addEventListeners(curr_page); // Pass curr_page to the function
-            break;
-        default:
-            console.log("No function developed for this page...");
-    	    console.log(root + 'index.php');
-	}
+	console.log(curr_page);
+	loadDashboard(content);
 });
 
-function loadDashboard(curr_page) {
-    console.log("loadDashboard function is being called"); // Debug
-    if (content) {
-        console.log("Content div found"); // Debug
+
+
+function loadDashboard(content) {
+	if (content) {
+		// Init session variables as null until we can confirm they exist
+		let logged_in = null;
+		let username = null;
+		let user_id = null;
+		// Check to see if logged_in is even present in the sess_map
+		if ('logged_in' in sess_map) {
+			logged_in = sess_map.logged_in;
+		}
+		// if it is present, and it is true...
 		if (logged_in) {
-			const username = 
+			username = sess_map.username;
+			user_id = sess_map.user_id;
 			content.innerHTML = `
 				<div class="dashboard">
                     <div class="header">
-                        <h2>Welcome Back!</h2>
+                        <h2>Welcome back, ${username}</h2>
                         <button class="logout-btn" id="logoutButton">Log Out</button>
                     </div>
                     <div class="synopsis">
-                        <p>Overview of your financial planner</p>
+                        <p>Overview of your financial plan</p>
                     </div>
                     <div class="graphic" id="dashboardGraphic">
                         <p>*insert relevant graphic*</p>
                     </div>
                 </div>
             `;	
-
 
 		} else {
 			content.innerHTML = `
@@ -82,34 +74,37 @@ function loadDashboard(curr_page) {
 				</div>
 			`;
 		}
-        addEventListeners(curr_page); // Pass curr_page to the function
+        addEventListeners(logged_in); // Pass logged_in to the function
     }
 }
 
-function addEventListeners(curr_page) {
-    console.log("Adding event listeners to buttons. ");
-    
-   // Sitemap button will be loaded regardless of our current page, as it is a property of the footer. 
-        // We know that footer.php occurs on all pages, and therefore the sitemap button will as well.
-            const sitemap_button = document.getElementById('siteMapButton');
-                if (sitemap_button) {
-			console.log("sitemap button exists");
-                        sitemap_button.addEventListener('click', function() {
-                                    window.location.href = 'design/sitemap.php';
-		    });
-		}
+function addEventListeners(logged_in) {
+
+	const sitemap_button = document.getElementById('siteMapButton');
+	if (sitemap_button) {
+		console.log("sitemap button exists");
+		
+		sitemap_button.addEventListener('click', function() {
+			window.location.href = 'design/sitemap.php';
+		});
+	}
 				    
 	// If the page we are on is the dashboard, add event listeners to buttons in the dashboard
-	    if (curr_page === '/cs2450/' || curr_page === '/cs2450/index.php') {
-		    const login_button = document.getElementById('loginSignupButton');
-		    if (login_button) {
-			login_button.addEventListener('click', function() {
-				window.location.href = 'login.php';
-			    });
-		    } else {
-			console.log("loginSignupButton not found"); // another debug
-			}													 
-		}
+		    if (!logged_in) {
+				const login_button = document.getElementById('loginSignupButton');
+				if (login_button) {
+					login_button.addEventListener('click', function() {
+						window.location.href = 'accounts/login.php';
+						});
+				}	
+			} else {
+				const logout_button = document.getElementById('logoutButton');
+				if (logout_button) {
+					logout_button.addEventListener('click', function() {
+					// TODO: implement logout functionality; where will it redirect?
+					});
+				}
+			}			 
 }
 
 window.addEventListener('scroll', function() {

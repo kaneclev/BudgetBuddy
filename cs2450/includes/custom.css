@@ -138,7 +138,7 @@ footer {
 
 
 /* Dashboard Stying */
-
+.logout-btn,
 .login-signup-btn {
 	padding: 10px 20px;
 	background-color: #ff6b6b;
@@ -149,9 +149,11 @@ footer {
 	font-size: 16px;
 }
 
+.logout-btn,
 .login-signup-btn:hover {
 	background-color: darkred;
 }
+
 
 .dashboard {
 	background-color: #fff;

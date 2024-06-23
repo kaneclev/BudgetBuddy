@@ -9,11 +9,8 @@ try {
 	 $pdo = new PDO('mysql:host=webdb.uvm.edu;dbname=' . $databaseName, $username, $writer_pass);
 
 } catch (PDOException $exception) {
-	echo '<div>There was a problem connecting to the database: ';
-	echo $exception->getMessage();
-	echo '</div>';
-
+	
+	echo 'Query error: ' . htmlspecialchars($exception->getMessage());
 }
-
-
 ?>
+
