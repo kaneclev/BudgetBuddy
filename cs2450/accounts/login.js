@@ -7,15 +7,17 @@
 
 
 $(document).ready(function() {
-    $('#loginForm').on('submit', function(event) {
+    
+    let errorContainer = $('.login-container .error');
+	
+	$('#loginForm').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
 
         let username = $('#username').val();
         let password = $('#password').val();
-        let errorContainer = $('.login-container .error');
 
         $.ajax({
-            url: '../utils/login-handler.php',
+            url: 'accounts/login-handler.php',
             type: 'POST',
             data: {
                 username: username,
@@ -23,6 +25,7 @@ $(document).ready(function() {
             },
             dataType: 'json',
             success: function(response) {
+				console.log('AJAX success response:', response);
                 errorContainer.empty(); // Clear previous errors
 
                 if (response.success) {
@@ -33,11 +36,21 @@ $(document).ready(function() {
                     });
                 }
             },
-            error: function() {
+            error: function(response) {
+				console.log(response)
+				console.log('AJAX error response: ', response.errors);
                 errorContainer.empty();
                 errorContainer.append('<div>There was an error processing your request. Please try again.</div>');
             }
         });
     });
+
+	$('#username, #password').on('input', function() {
+		errorContainer.empty();
+		});
+
 });
+
+
+
 

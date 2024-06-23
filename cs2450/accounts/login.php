@@ -30,12 +30,10 @@ $errors = [];
 	
         <div class="login-container">
             <h2>Log In</h2>
-            <?php if (isset($login_error)): ?>
-                <p class="error"><?php echo $login_error; ?></p>
-            <?php endif; ?>       
+			<div class="error"></div>
 			<?php
 				include(ROOT_PATH . 'includes/form.php');
-				renderFormStart('loginForm', 'login.php', 'POST'); // use form.php to start the form
+				renderFormStart('loginForm', 'accounts/login.php', 'POST'); // use form.php to start the form
 				renderTextInputField('text', 'username', 'username', 'Username:');
 				renderTextInputField('password', 'password', 'password', 'Password:');
 				renderFormEnd('Log In');
@@ -50,7 +48,7 @@ $errors = [];
 				<p class="error"><?php echo $signup_error; ?></p>
 			<?php endif; ?>
 			<?php 
-				renderFormStart('signupForm', '#', 'POST');
+				renderFormStart('signupForm', 'accounts/login.php', 'POST');
 				renderTextInputField('text', 'username_signup', 'username_signup', 'Username:');
 				renderTextInputField('password', 'password_signup', 'password_signup', 'Password:');
 				renderTextInputField('password', 'confirm_password_signup', 'confirm_password_signup', 'Confirm Password:');
@@ -58,7 +56,7 @@ $errors = [];
 			?>
 		</div>
 	
-    <script src="https://code.jsquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="accounts/login.js"></script>
 	<script src="accounts/signup.js"></script>
 	</main>

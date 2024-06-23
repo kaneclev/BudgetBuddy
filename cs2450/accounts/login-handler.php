@@ -1,7 +1,5 @@
 <?php				
-include($_SERVER['DOCUMENT_ROOT'] . '/cs2450/config.php');
-include(ROOT_PATH . 'includes/top.php');
-
+include('../includes/connect-DB.php');
 session_start();
 header('Content-Type: application/json');
 
@@ -31,7 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } catch (PDOException $e) {
             $response['errors'][] = 'There was a problem logging in. Try again later.';
             error_log($e->getMessage());
-        }
+        } catch (Exception $e) {
+			$response['errors'][] = 'An unexpected error occurred. Please try again later.';
+			error_log($e->getMessage());
+		}	
+		
     }
 }
 
