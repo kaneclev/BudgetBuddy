@@ -25,42 +25,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($password !== $confirm_password) {
         $errors[] = 'The passwords do not match.';
     }
-
+	error_log('Errors: ' . print_r($errors, true));
     if (empty($errors)) {
         // use password_hash builtin for hashing the password
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
         try {
             // Connect to the database
-            $pdo = new PDO('mysql:host=localhost;dbname=your_database_name', 'your_username', 'your_password');
-            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Check if username or email already exists
-            $stmt = $pdo->prepare('SELECT id FROM users WHERE username = :username OR email = :email');
-            $stmt->execute([':username' => $username, ':email' => $email]);
+            $stmt = $pdo->prepare('SELECT id FROM users WHERE username = :username');
+            $stmt->execute([':username' => $username]);
             if ($stmt->rowCount() > 0) {
-                $errors[] = 'The username or email is already taken.';
+                $errors[] = 'Username already taken.';
             } else {
                 // Insert the new user into the database
-                $stmt = $pdo->prepare('INSERT INTO users (username, password, email) VALUES (:username, :password, :email)');
+                print('Inserting ' . $password_hash . ' into database...');
+				$stmt = $pdo->prepare('INSERT INTO users (username, password) VALUES (:username, :password)');
                 $stmt->execute([
                     ':username' => $username,
                     ':password' => $password_hash,
-                    ':email' => $email
                 ]);
 
                 // Redirect to a success page
-                header('Location: success.php');
+                header('Location: index.php');
                 exit();
             }
         } catch (PDOException $e) {
-            $errors[] = 'There was a problem with the server. Please try again later.';
+            $errors[] = $e->getMessage();
         }
     }
 
     if (!empty($errors)) {
         $_SESSION['signup_error'] = $errors;
-        header('Location: signup.php');
+        error_log('LOOK HERE LOOK LISTEN : ' . $errors);
+		header('Location: login.php');
         exit();
     }
 }
@@ -68,6 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <main>
+
+	<?php
+    session_start();
+    if (isset($_SESSION['signup_error'])) {
+        echo '<div class="error-container">';
+        foreach ($_SESSION['signup_error'] as $error) {
+            echo "<p class='error'>$error</p>";
+        }
+        echo '</div>';
+        unset($_SESSION['signup_error']); // Clear errors after displaying
+    }
+    ?>
+
+	
         <div class="login-container">
             <h2>Log In</h2>
             <?php if (isset($login_error)): ?>
@@ -93,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				renderFormStart('signupForm', 'login.php', 'POST');
 				renderTextInputField('text', 'username_signup', 'username_signup', 'Username:');
 				renderTextInputField('password', 'password_signup', 'password_signup', 'Password:');
-				renderTextInputField('text', 'confirm_password_signup', 'confirm_password', 'Confirm Password:');
+				renderTextInputField('text', 'confirm_password_signup', 'confirm_password_signup', 'Confirm Password:');
 				renderFormEnd('Sign Up');	
 			?>
 		</div>

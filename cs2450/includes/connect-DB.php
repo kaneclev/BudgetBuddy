@@ -5,10 +5,13 @@ $databaseName = 'KMCLEVEL_CS2450';
 $username = 'kmclevel_writer';
 
 try {
-	$pdo = new PDO($dsn, $username, $writer_pass);
+
+	 $pdo = new PDO('mysql:host=webdb.uvm.edu;dbname=' . $databaseName, $username, $writer_pass);
 
 } catch (PDOException $exception) {
-	print('There was a problem connecting to the database: ' . $exception->getMessage());
+	echo '<div>There was a problem connecting to the database: ';
+	echo $exception->getMessage();
+	echo '</div>';
 
 }
 

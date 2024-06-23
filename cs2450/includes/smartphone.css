@@ -8,10 +8,57 @@
         font-size: 24px;
     }
 
-    .login-signup-btn {
-        font-size: 12px;
-        padding: 6px 12px;
-    }
+	
+	/* Login page styling */
+.login-container,
+.signup-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    height: 400px;
+    width: 300px;
+    margin: 0 20px; /* Space between the forms */
+    text-align: center;
+}
+
+.login-container h2,
+.signup-container h2 {
+    margin-bottom: 20px;
+}
+
+.login-container form,
+.signup-container form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.login-container label,
+.signup-container label {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.login-container input,
+.signup-container input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.login-container button,
+.signup-container button {
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: auto;
+
 
     .main-header {
         padding: 15px 0;
