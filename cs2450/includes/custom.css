@@ -141,17 +141,6 @@ footer {
 	bottom: 0;
 }
 
-.siteMapButton {
-	background-color: #666b67;
-	border: 1px solid black;
-	color: light-gray;
-	font-size: 12px;
-	margin: auto 5px;
-	display: inline-block;
-	padding: 15px 15px;
-}
-
-
 
 
 /* Dashboard Stying */
@@ -294,6 +283,20 @@ footer {
 }
 /* Sitemap Styling */
 
+.siteMapButton {
+	background-color: #666b67;
+	border: 1px solid black;
+	color: light-gray;
+	font-size: 12px;
+	margin: auto 5px;
+	display: inline-block;
+	padding: 15px 15px;
+}
+
+.siteMapButton a {
+	text-decoration: none;
+	color: inherit;
+}
 
 #site-map {
     background-color: #ffffff;

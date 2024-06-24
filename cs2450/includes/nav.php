@@ -1,5 +1,4 @@
 <?php
-session_start();
 $baseUrl = '/cs2450/';
 $current_page = basename($_SERVER['PHP_SELF']);
 $logged_in = false;
