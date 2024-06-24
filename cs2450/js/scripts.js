@@ -47,7 +47,6 @@ function loadDashboard(content) {
 				<div class="dashboard">
                     <div class="header">
                         <h2>Welcome back, ${username}</h2>
-                        <button class="logout-btn" id="logoutButton">Log Out</button>
                     </div>
                     <div class="synopsis">
                         <p>Overview of your financial plan</p>
@@ -63,7 +62,6 @@ function loadDashboard(content) {
 				<div class="dashboard">
 					<div class="header">
 						<h2>Dashboard</h2>
-						<button class="login-signup-btn" id="loginSignupButton">Login/Sign Up</button>
 					</div>
 					<div class="synopsis">
 						<p>Synopsis of the purpose and utility of the financial planner</p>

@@ -44,8 +44,8 @@ $errors = [];
 		</div>
 		<div class="signup-container">
 			<h2>Sign Up</h2>
+			<div class="error"></div>
 			<?php if (isset($signup_error)): ?>
-				<p class="error"><?php echo $signup_error; ?></p>
 			<?php endif; ?>
 			<?php 
 				renderFormStart('signupForm', 'accounts/login.php', 'POST');

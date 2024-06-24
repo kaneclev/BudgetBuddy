@@ -23,8 +23,8 @@ $(document).ready(function() {
 
     function clearError(message) {
         errorContainer.find('.error').each(function() {
-            if ($(message).text() === message) {
-                $(message).remove();
+            if ($(this).text() === message) {
+                $(this).remove();
             }
         });
     }
@@ -36,7 +36,8 @@ $(document).ready(function() {
 
         if (!/^[a-zA-Z0-9]*$/.test(username)) {
             if (!errorContainer.text().includes(invalidCharMessage)) {
-                addError(invalidCharMessage);
+                console.log('not valuid');
+				addError(invalidCharMessage);
             }
         } else {
             clearError(invalidCharMessage);
