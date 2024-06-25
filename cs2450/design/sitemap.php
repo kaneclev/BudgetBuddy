@@ -1,9 +1,5 @@
 <?php 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-include($_SERVER['DOCUMENT_ROOT'] . '/cs2450/config.php');
-include(ROOT_PATH . 'includes/top.php'); 
+include('../includes/top.php'); 
 ?>
 <script src="/cs2450/js/sitemap.js"></script>
 <noscript>

@@ -17,7 +17,7 @@
 */
 
 session_start();
-header('Content-Type: applciation/json');
+header('Content-Type: application/json');
 
 $response = array();
 

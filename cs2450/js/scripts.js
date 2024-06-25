@@ -88,21 +88,6 @@ function addEventListeners(logged_in) {
 	}
 				    
 	// If the page we are on is the dashboard, add event listeners to buttons in the dashboard
-		    if (!logged_in) {
-				const login_button = document.getElementById('loginSignupButton');
-				if (login_button) {
-					login_button.addEventListener('click', function() {
-						window.location.href = 'accounts/login.php';
-						});
-				}	
-			} else {
-				const logout_button = document.getElementById('logoutButton');
-				if (logout_button) {
-					logout_button.addEventListener('click', function() {
-					// TODO: implement logout functionality; where will it redirect?
-					});
-				}
-			}			 
 }
 
 window.addEventListener('scroll', function() {
