@@ -1,343 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
-html, body {
-	height: 100%;
-	background-color: #f4f4f4;
-	margin: 0;
-	padding: 0; 
-	font-family: Arial, sans-serif;
-	box-sizing: border-box;
-}
-body {
-	height: 100%;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: stretch;
-}
+/* 
+INFO
+----
+- This is a total remake for my CSS for this site.
+	- Why?
+		- My flex layout and my disorganization made it essentially impossible to build off of what i had.
+	- How?
+		- We are switching to grid layout, and we are making more flexible styling 
+				- what do i mean by flexible?
+					- There will be clearer parent style classes for elements. 
+					- Styling will be more organized and modular. 
+					- Elements will have a styling defined by me (default) and then i can change it. Like inheritance.
+					- We will be implementing variables for easy reusability.
+*/
 
-main {
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	box-sizing: border-box;
-}
 
-/* General definition for our button class for easy implementation*/
-button {
-	color: #fff;
-	font-size: 16px;
-	background-color: lightgray;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;    
+
+/* ROOT STYLE DEFINITIONS */
+/* Some base declarations. */
+:root {
+    --primary-color: #004d00;
+    --secondary-color: #06401d;
+    --accent-color: #c20003;
+    --light-gray: #f4f4f4;
+    --dark-gray: #666b67;
+    --white: #ffffff;
+    --font-family: 'Arial, sans-serif';
+    --heading-font-family: 'Montserrat, sans-serif';
+    --base-font-size: 16px;
+    --button-font-size: 16px;
 }
 
-button:hover {
-	opacity: 0.9;
-}
-
-#logout-btn,
-#login-signup-btn {
-	text-decoration: none;
-	padding: 10px 20px;
-	background-color: #c20003;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 16px;
-}
-
-#logout-btn,
-#login-signup-btn:hover {
-	background-color: darkred;
-}
-
-
-#content {
-	width: 100%;
-	display: flex;
-	padding: 20px;
-	box-sizing: border-box;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-/* Header Content */
-.main-header {
-	width: 100%;
-	background-color: #004d00; /* Dark green */
-	padding: 10px 0;
-	text-align: center;
-	color: white;
-	z-index: 1000;
-	position: relative;
-}
-
-.header-content {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 80%;
-	margin: 0 auto;
-	
-}
-
-.header-content h1 {
-	margin: 0;
-	font-size: 36px;
-	font-family: 'Montserrat', sans-serif;
-	color: white;
-}
-
-/* Navbar (included in top) styling */
-nav {
-	width: 100%;
-	background-color: #06401d;
-	color: black;
-	text-align: center;
-	padding: 10px 0;
-	z-index: 1000;
-	position: sticky;
-	top: 0;
-}
-
-nav ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-nav ul li {
-	display: inline;
-	margin: 0 10px;
-}
-
-nav ul li a {
-	text-decoration: none;
-	color: white;
-}
-
-nav ul li a.active {
-	font-weight: bold;
-	text-decoration: underline;
-}
-
-/* Footer styling */
-footer {
-	width: 100%;
-	background-color: #004d00;
-	color: white;
-	margin-top: auto;
-	text-align: left;
-	position: sticky;
-	padding: 10px 0;
-	z-index: 1000;
-	bottom: 0;
-}
-
-
-
-/* Dashboard Stying */
-
-
-
-.dashboard {
-	background-color: #fff;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	box-sizing: border-box;
-	width: 100%;
-	height: 100%;
-	max-height: none;
-	max-width: none;
-	text-align: center;
-}
-
-.header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.synopsis, .graphic {
-	background-color: #ccc;
-	margin: 20px 0;
-	padding: 20px;
-	border-radius: 5px;
-}
-
-.graphic {
-	background-color: #9370db;
-}
-
-
-
-
-
-/* General Definition for Form Container  */
-.forms-container {
-	display: flex;
-    justify-content: center;
-	align-items: flex-start;
-	gap: 20px;
-	margin-top: 50px;
-}
-
-
-
-/* 'OR' Separator Styling */
-.or-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 24px;
-	font-weight: bold;
-	padding: 0 10px;
-	color: #333;
-	text-align: center;
-	width: 150px;
-	white-space: nowrap;
-}
-
-/* Login page styling; Signup and Login containers... */
-.login-container,
-.signup-container {
-	background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-	width: 300px;
-    margin: 0 20px; /* Space between the forms */
-    text-align: center;
-	display: border-box;
-	position: -webkit-sticky;
-	position: sticky;
-	top: 20px;
-	z-index: 10;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	position: relative;
-}
-
-
-.login-container h2,
-.signup-container h2 {
-    margin-bottom: 20px;
-}
-
-.login-container form,
-.signup-container form {
-    display: flex;
-    flex-direction: column;
-	height: 100%;
-}
-
-.login-container label,
-.signup-container label {
-    text-align: left;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.login-container input,
-.signup-container input {
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-}
-
-.login-container button,
-.signup-container button {
-    padding: 10px;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 3px;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-	margin-bottom: auto;
-}
-
-.login-container button:hover,
-.signup-container button:hover {
-    background-color: #0056b3;
-}
-
-.error {
-	margin-top: 10px;
-	color: red;
-	text-align: left;
-	font-size: 14px;
-	display: block;
-	width: 100%;
-}
-.error div {
-	margin-bottom: 10px;
-
-}
-/* Sitemap Styling */
-
-.siteMapButton {
-	background-color: #666b67;
-	border: 1px solid black;
-	color: light-gray;
-	font-size: 12px;
-	margin: auto 5px;
-	display: inline-block;
-	padding: 15px 15px;
-}
-
-.siteMapButton a {
-	text-decoration: none;
-	color: inherit;
-}
-
-#site-map {
-    background-color: #ffffff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    width: 100%;
-    margin: 20px auto;
-}
-
-#site-map h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#site-map ul {
-    list-style: none;
-    padding: 0;
+/*  Defining global styling (for consistency).  */
+* {
     margin: 0;
+    padding: 0;
+	box-sizing: border-box;
 }
-
-#site-map ul li {
-    margin: 10px 0;
-}
-
-#site-map ul li a {
-    text-decoration: none;
-    color: #004d00;
-    font-size: 16px;
-}
-
-#site-map ul li a:hover {
-    text-decoration: underline;
-}
-
-
-
-
-
 
 
 
