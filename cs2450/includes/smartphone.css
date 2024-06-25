@@ -1,44 +1,60 @@
 @media (max-width: 480px) {
 
 html, body {
+	overflow: hidden;
 	height: 100%;
-	overflow: auto;
 }	
 
 body {
 	min-height: 100vh;
 }
 
+main {
+	width: 100%;
+	overflow: auto;
+	align-items: center;
+	margin-top: 8vh;
+	box-sizing: border-box;
+	padding-top: 8vh;	
+	padding-bottom: 8vh;
+	position: absolute;
+}
+
+.main-header {
+    justify-content: center;
+	align-items: center;
+	padding: 3vh;
+	position: fixed;
+	height: 4vh;
+}
+
 #content {
+		height: 100%;
+		padding-top: 34vh;
+		padding-bottom: 15vh;
 		flex-direction: column;
 		align-items: center;
-		width: 95%;
-		padding: 20px;
+		width: 100%;
 		overflow: auto;
 }
 
-main {
-	height: auto;
-	width: 100%;
-	overflow: auto;
-	align-items: flex-start;
-
-}
-
-
 
 	.header-content {
-        flex-direction: column;
-        text-align: center;
-    }
+		flex-direction: row;
+		justify-content: space-between;
+	}
 
     .header-content h1 {
-        font-size: 24px;
+        font-size: 3vh;
+		position: center;
     }
-
-    .main-header {
-        padding: 15px 0;
-    }
+	
+	
+	.main-header #login-signup-btn {
+		margin-left: auto;
+		font-size: 2vh;
+		padding: 1vh 2vh;
+	}
 
     .dashboard {
         padding: 5px;
@@ -48,6 +64,14 @@ main {
         margin: 5px 0;
         padding: 5px;
     }
+	
+	nav {
+		position: fixed;
+		padding: 1vh 0;
+		top: 8vh;
+		height: 2.7vh;
+
+	}	
 
     nav ul {
         text-align: center;
@@ -55,8 +79,22 @@ main {
 
     nav ul li {
         display: inline-block;
-        margin: 0 5px;
+        margin: 0 0.5vh;
     }
+
+	footer {
+		padding: 5px 0;
+		position: fixed;
+		bottom: 0;
+
+	}
+	
+	.siteMapButton {
+		font-size: 12px;
+		padding: 5px 10px;
+	}
+
+
 
     /* Login page styling */
     .forms-container {
@@ -64,19 +102,31 @@ main {
         flex-direction: column;
         align-items: center;
 		width: 100%;
-		margin-top: 20px;	
-    }
+		margin-top: 3vh;
+		margin-bottom: 0;
+		position: relative;
+	}
 
     .login-container,
     .signup-container {
         width: 90%;
-        margin: 10px 0;
-		box-sizing: border-box;	
-    }
+		margin: 3vh 3vh;
+		padding: 1.5vh;
+		box-sizing: border-box;
+	}
+	.login-container {
+		margin-top: 8vh;
+	}
+	.login-container #loginForm {
+		position: relative;	
+	}
 
 	.or-container {
-		margin-top: 30px;
-
+		display: block;
+		top: 1vh;
+		bottom: 1vh;
+		margin: 2vh 0;
+		font-size: 4vw;
 	}	
 }
 
