@@ -6,57 +6,52 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 	$logged_in = true;
 }
 ?>
-<nav>
-    <ul>
-        <li>
+<nav class="nav">
+    <ul class="nav__list">
+        <li class="nav__item">
             <a href="<?php echo $baseUrl . 'index.php';?>" 
-               class="<?php if ($current_page == 'index.php') { echo 'active'; } ?>">Dashboard</a>
+               class="nav__link <?php if ($current_page == 'index.php') { echo "nav__link--active"; } ?>">Dashboard</a>
         </li>
-        <li>
+        <li class="nav__item">
 			<a href="<?php
 						if ($logged_in) {	
-							echo $baseUrl . 'expenses.php'; 
+							echo $baseUrl . 'finance/expense.php'; 
 						} else { 
 							echo $baseUrl . 'accounts/login.php'; 
 						}
 					?>"
-               class="<?php if ($current_page == 'expenses.php') { echo 'active'; } ?>">Expenses</a>
+               class="nav__link <?php if ($current_page == 'expenses.php') { echo 'nav__link--active'; } ?>">Expenses</a>
         </li>
-        <li>
+        <li class="nav__item">
             <a href="<?php 
 						if ($logged_in) { 
-							echo $baseUrl . 'income.php'; 
+							echo $baseUrl . 'finance/income.php'; 
 						} else { 
 							echo $baseUrl . 'accounts/login.php'; 
 						}
 					?>"
-               class="<?php if ($current_page == 'income.php') { echo 'active'; } ?>">Income</a>
+               class="nav__link <?php if ($current_page == 'income.php') { echo 'nav__link--active'; } ?>">Income</a>
         </li>
-        <li>
+        <li class="nav__item">
             <a href="<?php 
 						if ($logged_in) { 
-							echo $baseUrl . 'budget.php'; 
+							echo $baseUrl . 'finance/budget.php'; 
 						} else { 
 							echo $baseUrl . 'accounts/login.php'; 
 						}
 					?>"
-               class="<?php if ($current_page == 'budget.php') { echo 'active'; } ?>">Budget</a>
+               class="nav__link <?php if ($current_page == 'budget.php') { echo 'nav__link--active'; } ?>">Budget</a>
         </li>
-        <li>
+        <li class="nav__item">
             <a href="<?php 
 						if ($logged_in) { 
-							echo $baseUrl . 'goals.php'; 
+							echo $baseUrl . 'finance/goal.php'; 
 						} else { 
 							echo $baseUrl . 'accounts/login.php';		
 						}
 					?>"
-               class="<?php if ($current_page == 'goals.php') { echo 'active'; } ?>">Goals</a>
+               class="nav__link <?php if ($current_page == 'goals.php') { echo 'nav__link--active'; } ?>">Goals</a>
         </li>
-		<?php
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-			echo '<li> <a href="accounts/logout-handler.php" id="logoutButton">Logout</a></li>';
-		}
-		?>
     </ul>
 
 </nav>

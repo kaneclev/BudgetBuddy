@@ -40,8 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':username' => $signup_username,
                         ':password' => $password_hash,
                     ]);
-                    $response['success'] = true;
-                }
+				    $response['success'] = true;
+					$_SESSION['logged_in'] = true;
+					
+				}
             } catch (PDOException $e) {
                 $response['errors'][] = $e->getMessage();
             } catch (Exception $e) {

@@ -18,17 +18,26 @@ INFO
 /* ROOT STYLE DEFINITIONS */
 /* Some base declarations. */
 :root {
-    --primary-color: #004d00;
-    --secondary-color: #06401d;
-    --accent-color: #c20003;
-    --light-gray: #f4f4f4;
-    --dark-gray: #666b67;
+	--base-spacing: 2vw;
+    --primary-color: #2c3e50; /* Darker blue-gray */
+    --secondary-color: #34495e; /* Slightly lighter blue-gray */
+    --accent-color: #e74c3c; /* Red for accents */
+    --soft-gray: #ded9d9;
+	--light-gray: #ecf0f1; /* Very light gray */
+    --dark-gray: #95a5a6; /* Mid-tone gray */
     --white: #ffffff;
-    --font-family: 'Arial, sans-serif';
-    --heading-font-family: 'Montserrat, sans-serif';
-    --base-font-size: 16px;
-    --button-font-size: 16px;
+	--black: #000000; 
+	--font-family: 'Inter', sans-serif;
+    --heading-font-family: 'Montserrat', sans-serif;
+    --base-font-size: 1rem;
+    --button-font-size: 1rem;
+    --text-outline:
+        -.05em -.05em 0 #000,
+         .05em -.05em 0 #000,
+        -.05em  .05em 0 #000,
+         .05em  .05em 0 #000; /* Four shadows to create an outline effect */
 }
+
 
 /*  Defining global styling (for consistency).  */
 * {
@@ -37,15 +46,294 @@ INFO
 	box-sizing: border-box;
 }
 
+/** STARTING DIRECT CONTENT STYLING **/
+
+
+/* Body styling (variables help for flexibility...)  */
+body {
+	/* Positioning */
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	min-height: 100vh;
+	/* Styling */
+	font-family: var(--font-family);
+	background-color: var(--light-gray);
+	color: var(--primary-color);
+}
+
+
+/* Header Styling */
+.header {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Three columns */
+    align-items: center; /* Center items vertically */
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: calc(0.5 * var(--base-spacing));
+}
+.header__content {
+	display: contents;
+}
+.header__title {
+	/* Position */
+	white-space: nowrap;
+	margin: 0;	
+	user-select: none;
+	font-size: calc(1vw + 1vh);
+	font-family: var(--heading-font-family);
+	text-shadow: 
+        -3px -3px 0 #000,  
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000; /* Four shadows to create an outline effect */
+}
+
+/* NavBar Styling */
+.login__button {
+    background-color: var(--accent-color);
+    text-shadow: var(--text-outline);
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    text-align: center;
+    cursor: pointer;
+    font-size: var(--button-font-size);
+    color: var(--white);
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+	justify-self: end; 
+	margin-left: var(--base-space);
+}
+.login__button:hover {
+    opacity: 0.9;
+}
+.login__button:focus {
+    outline: 0.25em #000;
+}
+.login__button:active {
+    background-color: #c0392b;
+}
+
+
+
+
+.nav {
+    background-color: var(--secondary-color);
+    text-align: center;
+    padding: 0.5rem;
+    display: grid; /* Use grid for the nav */
+    grid-template-columns: 1fr; /* Single column */
+}	
+.nav__list {
+    list-style: none;
+    display: grid; /* Use grid for nav items */
+    grid-auto-flow: column; /* Arrange items in a row */
+    justify-content: center; /* Center nav items */
+    padding: 0;
+    margin: 0;
+}
+.nav__item {
+	margin: 0 2em;
+}
+.nav__link {
+	color: var(--white);
+	text-decoration: none;
+	font-size: 1rem;
+}
+.nav__link--active {
+	font-weight: bold;
+}
 
 
 
 
 
+/* Reusable Class Definitions */
+
+
+/* Abstract Button Definition */
+.button {
+	display: inline-block; 
+	padding: 0.5em 1em;
+	border-radius: 0.25em;
+	text-align: center;
+	cursor: pointer;
+	font-size: var(--button-font-size);
+	color: var(--white); 
+	text-decoration: none;
+	border: none;
+	transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+/* Slightly less abstract button def;
+ we decide what 'category' our buttons will fall under as we dev. 
+More flexible. */
+
+/* Primary Button */
+.button--primary {
+	cursor: pointer;
+	background-color: var(--accent-color);
+}
+.button--primary:hover {
+	cursor: pointer;
+	opacity: 0.9;
+}
+.button--primary:focus {
+	outline: 2px solid var(--accent-color);
+	outline-offset: 2px;
+}
+.button--primary:active {
+	background-color: #c0392b;
+}
+.button--primary:disabled {
+	background-color: lightgray;
+	cursor: not-allowed;
+}
+
+/* Secondary Button */
+.button--secondary {
+	background-color: var(--dark-gray);
+}
+.button--secondary:hover {
+	opacity: 0.9;
+}
+.button--secondary:focus {
+	outline: 2px solid var(--dark-gray);
+	outline-offset: 2px;
+}
+.button--secondary:active {
+	background-color: #7f8c8d;
+}
+.button--secondary:disabled {
+	background-color: lightgray;
+	cursor: not-allowed;
+}
 
 
 
 
+/* Form Abstract Styling */
+	
+form {
+    display: grid;
+    gap: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input {
+    padding: 0.5rem;
+    border: 1px solid var(--dark-gray);
+    border-radius: 0.25em;
+    font-size: 1rem;
+}
+
+/* MAIN CONTENT STYLING */
+
+main {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--base-spacing);
+	padding: var(--base-spacing);
+	background: linear-gradient(to right, var(--dark-gray), var(--light-gray) 50%, var(--dark-gray));
+}
+main .main__section {
+	background-color: var(--white);
+	padding: calc(0.75 * var(--base-spacing));
+	border-radius: 0.5em;
+	box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+}
+
+	/* Dashboard Styling */
+#dashboard {
+    background-color: var(--soft-gray); /* Softer light gray */
+    padding-top: 3rem; /* Add padding */
+    border-radius: 0.25em; /* Rounded corners */
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1); /* Slight elevation effect */
+	position: relative;
+}
+
+#dashboard__header {
+	margin-left: var(--base-spacing));
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+#dashboard__header #welcome__message {
+	margin-left: var(--base-spacing);
+}
+
+/* LOGIN.PHP STYLING */
+.login__container, .signup__container {
+    background-color: var(--soft-gray);
+    padding: 2rem;
+    border-radius: 0.5em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+#login__form__button {
+    background-color: var(--accent-color);
+    color: var(--black);
+    width: 100%;
+	max-width: 200px; /* Ensure the button does not exceed a certain width */
+    margin: 0 auto; /* Center the button */
+    padding: 1rem 2rem; /* Increase the vertical padding */
+}
+
+
+#signup__form__button {
+    background-color: var(--secondary-color);
+    color: var(--white);
+	width: 100%;    
+	max-width: 200px; /* Ensure the button does not exceed a certain width */
+    margin: 0 auto; /* Center the button */
+    padding: 1rem 2rem; /* Increase the vertical padding */
+}
+
+.error {
+	color: red;
+}
+
+/* FOOTER STYLING */
+.footer {
+    display: grid;
+    position: relative;
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+    padding: calc(0.75 * var(--base-spacing));
+}
+
+.footer .sitemap {
+    position: absolute;
+    bottom: calc(0.5 * var(--base-spacing)); /* Slightly above the bottom */
+    left: calc(0.5 * var(--base-spacing)); /* Slightly inside the left edge */
+    font-size: 0.75rem; /* Subtle font size */
+    color: var(--dark-gray); /* Subtle color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Sitemap Link Styling */
+.footer .sitemap a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.footer .sitemap:hover {
+    color: var(--light-gray);
+
+}
 
 
 

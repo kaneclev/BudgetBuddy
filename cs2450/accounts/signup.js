@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-    let errorContainer = $('.signup-container .error');
+    let errorContainer = $('.signup__container .error');
 
     /* 
 		The following functions are all trying to do similar things;
@@ -118,8 +118,40 @@ $(document).ready(function() {
                 errorContainer.empty(); // Clear previous errors
 
                 if (response.success) {
-                    window.location.href = 'index.php'; // Redirect on success
-                } else {
+                    
+
+					console.log('trying to log in...'); 
+					$.ajax({
+							url: 'accounts/login-handler.php',
+							type: 'POST',
+							data: {
+								username: username,
+								password: password
+							},
+							dataType: 'json',
+							success: function(response) {
+								console.log('AJAX success response:', response);
+								errorContainer.empty(); // Clear previous errors
+
+								if (response.success) {
+									console.log('the inner ajax req returned a success.');
+									window.location.href = 'index.php'; // Redirect on success
+								} else {
+									response.errors.forEach(function(error) {
+										errorContainer.append('<div>' + error + '</div>');
+									});
+								}
+							},
+							error: function(response) {
+								console.log(response)
+								console.log('AJAX error response: ', response.errors);
+								errorContainer.empty();
+								errorContainer.append('<div>There was an error processing your request. Please try again.</div>');
+							}
+					});
+
+
+				} else {
                     response.errors.forEach(function(error) {
                         errorContainer.append('<div>' + error + '</div>');
                     });

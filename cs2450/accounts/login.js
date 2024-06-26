@@ -8,7 +8,7 @@
 
 $(document).ready(function() {
     
-    let errorContainer = $('.login-container .error');
+    let errorContainer = $('.login__container .error');
 	
 	$('#loginForm').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission

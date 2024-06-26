@@ -17,7 +17,7 @@ async function getSessionData() {
 
 
 document.addEventListener('DOMContentLoaded', async function() {
-	let content = document.getElementById('content');
+	let content = document.getElementById('dashboard');
 	let root_filepath = content.getAttribute('root_path');
 	let curr_page = window.location.pathname;
 	let root = '/cs2450/';	

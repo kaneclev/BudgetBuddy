@@ -45,8 +45,8 @@ function renderTextareaField($id, $name, $label) {
 }
 
 // This is the end of the 'shell' for our form
-function renderFormEnd($submitLabel) {
-	echo "<button type='submit'>$submitLabel</button>";
+function renderFormEnd($submitLabel, $buttonId) {
+	echo "<button class='button--primary' type='submit' id='$buttonId'>$submitLabel</button>";
 	echo "<p class='error' style='display:none;'></p>";
 	echo "</form>";
 }

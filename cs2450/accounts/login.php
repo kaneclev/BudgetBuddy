@@ -6,19 +6,19 @@ session_start();
 $errors = [];
 
 ?>
-    <main id="content">
+    <main id="login__content">
 	<?php
     if (isset($_SESSION['signup_error'])) {
-        echo '<div class="error-container">';
+        echo '<div class="login__error__container">';
         foreach ($_SESSION['signup_error'] as $error) {
             echo "<p class='error'>$error</p>";
         }
         echo '</div>';
-        unset($_SESSION['signup_error']);
+        unset($_SESSION['signup__error__container']);
     }
 
 	if (isset($_SESSION['login_error'])) {
-        echo '<div class="error-container">';
+        echo '<div class="login__error__container">';
         foreach ($_SESSION['login_error'] as $error) {
             echo "<p class='error'>$error</p>";
         }
@@ -28,7 +28,7 @@ $errors = [];
 	?>
 
 	
-        <div class="login-container">
+        <div class="login__container">
             <h2>Log In</h2>
 			<div class="error"></div>
 			<?php
@@ -36,13 +36,11 @@ $errors = [];
 				renderFormStart('loginForm', 'accounts/login.php', 'POST'); // use form.php to start the form
 				renderTextInputField('text', 'username', 'username', 'Username:');
 				renderTextInputField('password', 'password', 'password', 'Password:');
-				renderFormEnd('Log In');
+				renderFormEnd('Log In', 'login__form__button');
 			?>   
         </div>
-		<div class="or-container"> 
-			<span>-OR-</span>
-		</div>
-		<div class="signup-container">
+		<div class="login__separator">
+		<div class="signup__container">
 			<h2>Sign Up</h2>
 			<div class="error"></div>
 			<?php if (isset($signup_error)): ?>
@@ -52,7 +50,7 @@ $errors = [];
 				renderTextInputField('text', 'username_signup', 'username_signup', 'Username:');
 				renderTextInputField('password', 'password_signup', 'password_signup', 'Password:');
 				renderTextInputField('password', 'confirm_password_signup', 'confirm_password_signup', 'Confirm Password:');
-				renderFormEnd('Sign Up');	
+				renderFormEnd('Sign Up', 'signup__form__button');	
 			?>
 		</div>
 	
