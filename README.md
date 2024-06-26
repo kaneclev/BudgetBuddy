@@ -18,7 +18,7 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
     - [x] top.php
     - [x] header.php included in top
     - [x] nav.php included in top 
-    - [ ] connect-DB.php included in top
+    - [x] connect-DB.php included in top
     - [x] footer.php
 - [ ] A sitemap (sitemap.php) which reflects the final project
     - [ ] Sitemap pushed to repo (commit message: Final project: updated site map)
