@@ -2,6 +2,7 @@
 /* Include top.php */
 include("../includes/top.php");
 require('../includes/form.php');
+$user_id = $_SESSION['user_id'];
 ?>
 
 <main>
@@ -45,6 +46,16 @@ require('../includes/form.php');
 			<br>
 		<div id="income-category-list">
 			<a>Your Income Categories</a>
+	
+			<ul>
+                <?php foreach ($incomeCategories as $category): ?>
+                    <li>
+                        <?= htmlspecialchars($category['category_name']) ?>
+                        <button class="delete-category-btn" data-category-id="<?= $category['id'] ?>" data-category-type="income">x</button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+
 		</div> 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="finance/budget.js"></script>

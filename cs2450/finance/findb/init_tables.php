@@ -97,7 +97,7 @@ function createIncomeTable($pdo) {
     }
 }
 
-}
+
 
 
 ?>
@@ -108,5 +108,6 @@ function createIncomeTable($pdo) {
 createUsersTable($pdo);
 createExpenseCategoriesTable($pdo);
 createExpensesTable($pdo);
-createIncomeStreamsTable($pdo);
+createIncomeCategoriesTable($pdo);
+createIncomeTable($pdo);
 ?>

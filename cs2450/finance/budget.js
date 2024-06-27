@@ -1,86 +1,104 @@
 $(document).ready(function() {
-
-
     function addError(errorContainer, message) {
-		console.log('add error was just told to add this message: ', message);
         errorContainer.append('<div class="error">' + message + '</div>');
-    }
-
-    function clearError(errorContainer, message) {
-        errorContainer.find('.error').each(function() {
-            if ($(this).text() === message) {
-                $(this).remove();
-            }
-        });
     }
 
     function clearAllErrors(errorContainer) {
         errorContainer.empty();
     }
-	
-   
 
+    function addCategoryToList(categoryName, categoryId, categoryType) {
+        const listId = categoryType === 'expense' ? '#expense-category-list ul' : '#income-category-list ul';
+        const newCategoryHtml = `
+            <li>
+                ${categoryName}
+                <button class="delete-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">x</button>
+            </li>
+        `;
+        $(listId).append(newCategoryHtml);
+    }
 
+    function handleFormSubmission(formId, inputId, actionType, categoryType) {
+        $(formId).on('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
 
-	$('#add-category-btn').on('click', function(event) {
-		event.preventDefault(); // Prevent default form submission
+            const errorContainer = $(formId + ' .error');
+            clearAllErrors(errorContainer);
 
-		const errorContainer = $('#add-category-form .error');
-		clearAllErrors(errorContainer);
+            const categoryName = $(inputId).val().trim();
 
-		const categoryName = $('#new-category-name').val();
+            // Client-side validation
+            if (categoryName === '') {
+                addError(errorContainer, 'Category name is required.');
+                return;
+            }
 
-		// Client-side validation
-		if (categoryName === '') {
-			addError(errorContainer, 'Category name is required.');
-		}
+            const formData = {
+                action: actionType,
+                category_name: categoryName
+            };
 
-		// Check if there are any error messages
-		if (errorContainer.children().length === 0) {
-			const formData = {
-				action: 'add_category',
-				category_name: categoryName
-			};
+            console.log('Form Data:', formData); // Debugging statement
 
-			console.log('Form Data:', formData); // Debugging statement
+            $.ajax({
+                url: 'finance/budget-handler.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Server response:', response); // Debugging statement
+                    if (response.status === 'success') {
+                        // Add the new category to the list without reloading
+                        addCategoryToList(categoryName, response.category_id, categoryType);
+                        $(inputId).val(''); // Clear the input field
+                    } else {
+                        addError(errorContainer, response.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('AJAX error:', textStatus, errorThrown); // Debugging statement
+                    addError(errorContainer, 'An error occurred while processing your request. Please try again.');
+                }
+            });
+        });
+    }
 
-			$.ajax({
-				url: 'finance/budget-handler.php',
-				type: 'POST',
-				data: formData,
-				dataType: 'json',
-				success: function(response) {
-					console.log('Server response:', response); // Debugging statement
-					if (response.status === 'success') {
-						loadExpenses();
-					} else {
-						addError(errorContainer, response.message);
-					}
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					console.log('AJAX error:', textStatus, errorThrown); // Debugging statement
-					addError(errorContainer, 'An error occurred while processing your request. Please try again.');
-				}
-			});
-		}
-	});
-	
+    function handleCategoryDeletion() {
+        $(document).on('click', '.delete-category-btn', function() {
+            const categoryId = $(this).data('category-id');
+            const categoryType = $(this).data('category-type');
+            const formData = {
+                action: 'delete_category',
+                category_id: categoryId,
+                category_type: categoryType
+            };
 
-	$('#delete-category-btn').on('click', function(event) {
-		event.preventDefault();
-		const errorContainer = $('#delete-category-form .error');
-		clearAllErrors(errorContainer);
-		const categoryName = $('#new-category-name').val();
-		
-		// verify that there was a category name input
-		if (categoryName === '') {
-			addError(errorContainer, 'Category name is required.');
+            console.log('Delete Data:', formData);
 
-		}
+            $.ajax({
+                url: 'finance/budget-handler.php',
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Server response:', response);
+                    if (response.status === 'success') {
+                        // Remove the category from the list without reloading
+                        $(`button[data-category-id='${categoryId}'][data-category-type='${categoryType}']`).closest('li').remove();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log('AJAX error:', textStatus, errorThrown);
+                    alert('An error occurred while processing your request. Please try again.');
+                }
+            });
+        });
+    }
 
-
-
-	});
-
-    });
+    handleFormSubmission('#add-expense-category-form', '#new-expense-category-name', 'add_expense_category', 'expense');
+    handleFormSubmission('#add-income-category-form', '#new-income-category-name', 'add_income_category', 'income');
+    handleCategoryDeletion();
+});
 
