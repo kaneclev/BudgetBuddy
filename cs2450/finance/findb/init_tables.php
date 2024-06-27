@@ -25,7 +25,9 @@ function createExpenseCategoriesTable($pdo) {
         category_id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
         category_name VARCHAR(100) NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+        description TEXT DEFAULT NULL,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );";
 
     try {
@@ -44,7 +46,7 @@ function createExpensesTable($pdo) {
         category_id INT,
         expense_name VARCHAR(100) NOT NULL,
         monthly_expenditure DECIMAL(10, 2) NOT NULL,
-        description TEXT,
+        description TEXT DEFAULT NULL,
         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
         FOREIGN KEY (category_id) REFERENCES expense_categories(category_id) ON DELETE CASCADE
     );";
@@ -57,15 +59,14 @@ function createExpensesTable($pdo) {
 	}
 }
 
-function createIncomeStreamsTable($pdo) {
+function createIncomeCategoriesTable($pdo) {
     $query = "
-    CREATE TABLE IF NOT EXISTS income_streams (
-        income_id INT PRIMARY KEY AUTO_INCREMENT,
+    CREATE TABLE IF NOT EXISTS income_categories (
+        category_id INT PRIMARY KEY AUTO_INCREMENT,
         user_id INT,
-        income_name VARCHAR(100) NOT NULL,
-        category VARCHAR(50),
-        monthly_income DECIMAL(10, 2) NOT NULL,
-        description TEXT,
+        category_name VARCHAR(100) NOT NULL,
+        description TEXT DEFAULT NULL,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );";
 
@@ -76,6 +77,29 @@ function createIncomeStreamsTable($pdo) {
 		error_log($e);
 	}
 }
+
+function createIncomeTable($pdo) {
+	$query = "
+    CREATE TABLE IF NOT EXISTS incomes (
+        category_id INT PRIMARY KEY AUTO_INCREMENT,
+        user_id INT,
+        income_name VARCHAR(100) NOT NULL,
+        description TEXT DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    );";
+
+    try {
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+    } catch (\PDOException $e) {
+        error_log($e);
+    }
+}
+
+}
+
+
 ?>
 
 <?php
