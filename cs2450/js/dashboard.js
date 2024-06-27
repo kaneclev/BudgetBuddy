@@ -54,8 +54,8 @@ function loadDashboard(content) {
                         <p>Overview of your financial plan</p>
                     </div>
                     <div id="dashboard__graphic">
-                        <p>*insert relevant graphic*</p>
-                    </div>
+						<img src="/cs2450/design/dash_banner.png" class="dashboard__banner" alt="Dashboard Banner">
+					</div>
             `;
 
         } else {
