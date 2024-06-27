@@ -1,55 +1,55 @@
 <?php
 /* Include top.php */
 include("../includes/top.php");
+require('../includes/form.php');
 ?>
 
 <main>
 	 <div id="budget-container">
         <h1 id="form-title">Define Your Budget</h1>
-        <?php
-			require('../includes/form.php');
-            renderFormStart('expense-form', 'finance/budget-handler.php', 'POST');
-            echo '<input type="hidden" name="action" value="add_expense">';
-			renderTextInputField('text', 'expense-name', 'expense_name', 'Expense Name:', true);
-            renderTextInputField('number', 'monthly-cost', 'monthly_cost', 'Monthly Cost:', true, 'decimal');
-        ?>
-        
-		<div id="expense-category-container">
-            <label for="expense-category">Category:</label>
-            <select id="expense-category" name="expense_category">
-                <!-- Options will be populated dynamically -->
-                <option value="add_category">Add New Category...</option>
-            </select>
-        </div>
-        <div id="add-category-form" style="display:none;">
-            <?php
-                renderTextInputField('text', 'new-category-name', 'new_category_name', 'New Category Name:', true);
-                echo '<button id="add-category-btn">Add Category</button>';
-            ?>
-        </div>
-        <div class="error"></div>
-        <?php
-            renderFormEnd('Add Expense', 'add-expense-btn');
-        ?>   <?php
-            renderFormStart('delete-expense-form', 'finance/budget-handler.php', 'POST');
-			echo '<input type="hidden" name="action" value="delete_expense">';
-        ?>
-        
-		<label for="delete-expense">Delete Expense:</label>
-        <select id="delete-expense" name="expense_id">
-            <!-- Options will be populated dynamically -->
-        </select>
-        <div class="error"></div>
-		<?php
-            renderFormEnd('Delete', 'delete-expense-btn');
-        ?>
-    </div>
 
-    <div id="expenses-list">
-        <!-- List of expenses will be populated dynamically -->
-    </div>
+
+		<div id="add-expense-category-form">
+			<?php
+				renderFormStart('add-expense-category-form', 'finance/budget-handler.php', 'POST');
+				echo '<input type="hidden" name="action" value="add_expense_category">';
+				renderTextInputField('text', 'new-expense-category-name', 'new_expense_category_name', 'Add an expense category:', true);	
+				renderFormEnd('Add Category', 'add-expense-category-btn');
+			?>
+			<div class="error"></div>
+		</div>		
+			<br>	
+		<div id="expense-category-list">
+			<a>Your Expense Categories</a>
+			
+			<ul>
+                <?php foreach ($expenseCategories as $category): ?>
+                    <li>
+                        <?= htmlspecialchars($category['category_name']) ?>
+                        <button class="delete-category-btn" data-category-id="<?= $category['id'] ?>" data-category-type="expense">x</button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+
+		</div>
+			<br>
+	<div id="add-income-category-form">
+			<?php 
+				renderFormStart('add-income-category-form', 'finance/budget-handler.php', 'POST');
+				echo '<input type="hidden" name="action" value="add_income_category">';
+				renderTextInputField('text', 'new-income-category-name', 'new_income_category_name', 'Add an income category:', true);
+				renderFormEnd('Add Category', 'add-income-category-btn');
+			?>
+			<div class="error"></div>
+		</div>
+			<br>
+		<div id="income-category-list">
+			<a>Your Income Categories</a>
+		</div> 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="finance/budget.js"></script>
+	</div>
+
 	
 </main>
 

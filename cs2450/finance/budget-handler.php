@@ -25,6 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $expense_id]);
         $response = ['status' => 'success', 'message' => 'Expense deleted successfully'];
     }
+
+	if ($action === 'add_category') {
+        error_log("LOOK AT MY SESSION USER ID: " . $user_id);
+
+		$category_name = $_POST['category_name'];
+		error_log("LOOK AT MY CATEGORY NAME: " . $category_name);
+        $stmt = $pdo->prepare("INSERT INTO expense_categories (user_id, category_name) VALUES (?, ?)");
+        $stmt->execute([$user_id, $category_name]);
+        $response = ['status' => 'success', 'message' => 'Category added successfully'];
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
