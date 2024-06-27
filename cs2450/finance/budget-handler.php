@@ -54,8 +54,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $response['message'] = 'Invalid category type.';
         }
-    }
+    } elseif ($action === 'get_expenses') {
+        $category_id = $_POST['category_id'];
+        $stmt = $pdo->prepare("SELECT expense_name, monthly_expenditure FROM expenses WHERE category_id = ? AND user_id = ?");
+        $stmt->execute([$category_id, $user_id]);
+        $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $response = [
+            'status' => 'success',
+            'expenses' => $expenses
+        ];
+	}
 }
+
 
 
 
@@ -75,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     ];
 
     echo json_encode($response);
-
+	exit();
 }
 
 echo json_encode($response);

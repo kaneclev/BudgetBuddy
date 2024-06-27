@@ -22,14 +22,8 @@ $user_id = $_SESSION['user_id'];
 			<br>	
 		<div id="expense-category-list">
 			<a>Your Expense Categories</a>
-			
+			<!-- for creating the lists as the user loads the page -->	
 			<ul>
-                <?php foreach ($expenseCategories as $category): ?>
-                    <li>
-                        <?= htmlspecialchars($category['category_name']) ?>
-                        <button class="delete-category-btn" data-category-id="<?= $category['id'] ?>" data-category-type="expense">x</button>
-                    </li>
-                <?php endforeach; ?>
             </ul>
 
 		</div>
@@ -48,13 +42,8 @@ $user_id = $_SESSION['user_id'];
 			<a>Your Income Categories</a>
 	
 			<ul>
-                <?php foreach ($incomeCategories as $category): ?>
-                    <li>
-                        <?= htmlspecialchars($category['category_name']) ?>
-                        <button class="delete-category-btn" data-category-id="<?= $category['id'] ?>" data-category-type="income">x</button>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <!-- same thing here; income categories which are associated with the session's user_id will get loaded here -->
+			</ul>
 
 		</div> 
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
