@@ -1,9 +1,15 @@
 <?php
-/* Include top.php */
 include("../includes/top.php");
+?>
+
+<main>
 
 
 
-include(ROOT_PATH . "includes/footer.php");
 
-?>    
+</main>
+
+
+<?php
+include("../includes/footer.php");
+?>
