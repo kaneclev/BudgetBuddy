@@ -1,14 +1,12 @@
-
-
 $(document).ready(function() {
 
-    let errorContainer = $('.error');
 
-    function addError(message) {
+    function addError(errorContainer, message) {
+		console.log('add error was just told to add this message: ', message);
         errorContainer.append('<div class="error">' + message + '</div>');
     }
 
-    function clearError(message) {
+    function clearError(errorContainer, message) {
         errorContainer.find('.error').each(function() {
             if ($(this).text() === message) {
                 $(this).remove();
@@ -16,33 +14,90 @@ $(document).ready(function() {
         });
     }
 
-    function clearAllErrors() {
+    function clearAllErrors(errorContainer) {
         errorContainer.empty();
     }
+	
+	loadExpenses();
+   
+	 function loadExpenses() {
+        $.ajax({
+            url: 'finance/budget-handler.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                const expenseCategory = $('#expense-category');
+                const deleteExpense = $('#delete-expense');
+                const expensesList = $('#expenses-list');
 
-    $('#add-budget-btn').on('click', function() {
-        clearAllErrors();
+                expenseCategory.empty();
+                deleteExpense.empty();
+                expensesList.empty();
+
+                let categoriesExist = false;
+
+                if (data.categories && data.categories.length > 0) {
+                    categoriesExist = true;
+                    data.categories.forEach(function(category) {
+                        expenseCategory.append(new Option(category.category_name, category.category_id));
+                    });
+                }
+                expenseCategory.append(new Option('Add New Category...', 'add_category'));
+
+                if (data.expenses && data.expenses.length > 0) {
+                    data.expenses.forEach(function(expense) {
+                        deleteExpense.append(new Option(expense.expense_name, expense.expense_id));
+                        
+                        const expenseItem = $('<div class="expense-item"></div>');
+                        expenseItem.text(`Name: ${expense.expense_name}, Category: ${expense.category_name}, Monthly Cost: $${expense.monthly_expenditure}`);
+                        expensesList.append(expenseItem);
+                    });
+                }
+
+                if (!categoriesExist) {
+                    $('#expense-category-container').hide();
+                    $('#add-category-form').show();
+                } else {
+                    $('#expense-category-container').show();
+                    $('#add-category-form').hide();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                const errorContainer = $('#expenses-list .error');
+                addError(errorContainer, 'An error occurred while loading the budget data. Please try again.');
+            }
+        });
+    }
+
+
+
+
+
+
+
+	 $('#add-expense-btn').on('click', function(event) {
+        event.preventDefault(); // Prevent default form submission
+		const errorContainer = $('#expense-form .error');
+        clearAllErrors(errorContainer);
         
-        const budgetName = $('#budget-name').val();
+        const expenseName = $('#expense-name').val();
         const expenseCategory = $('#expense-category').val();
-        const newCategory = $('#new-category').val();
-        const monthlyExpenditure = $('#monthly-expenditure').val();
+        const monthlyCost = $('#monthly-cost').val();
 
         // Client-side validation
-        if (budgetName === '') {
-            addError('Budget name is required.');
+        if (expenseName === '') {
+            addError(errorContainer, 'Expense name is required.');
         }
-        if (monthlyExpenditure === '' || monthlyExpenditure <= 0) {
-            addError('Monthly expenditure must be a positive number.');
+        if (monthlyCost === '' || monthlyCost <= 0) {
+			addError(errorContainer, 'Monthly cost must be a positive number.');
         }
 
-        if ($('.error').length === 0) {
+        if (errorContainer.children().length === 0) {
             const formData = {
-                action: 'add_budget',
-                budget_name: budgetName,
+                action: 'add_expense',
+                expense_name: expenseName,
                 expense_category: expenseCategory,
-                new_category: newCategory,
-                monthly_expenditure: monthlyExpenditure
+                monthly_cost: monthlyCost
             };
 
             $.ajax({
@@ -52,31 +107,38 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(response) {
                     if (response.status === 'success') {
-                        loadBudgetData();
+                        loadExpenses();
                     } else {
-                        addError(response.message);
+                        addError(errorContainer, response.message);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    addError('An error occurred while processing your request. Please try again.');
+                    console.log('AJAX threw an error when trying to add an expense: ', textStatus, jqXHR);
+					addError(errorContainer, 'An error occurred while processing your request. Please try again.');
                 }
             });
-        }
+        } else {
+			console.log('cant send add_expense because error container length > 0');
+			console.log('This is the error container: ', errorContainer.html());
+			console.log('This is the error container length: ', $('.error-container').length);
+		}
     });
 
-    $('#delete-budget-btn').on('click', function() {
-        clearAllErrors();
+    $('#delete-expense-btn').on('click', function(event) {
+        event.preventDefault(); // Prevent default form submission
+		const errorContainer = $('#delete-expense-form .error');
+        clearAllErrors(errorContainer);
 
-        const categoryId = $('#delete-category').val();
+        const expenseId = $('#delete-expense').val();
 
-        if (categoryId === null) {
-            addError('Please select a category to delete.');
+        if (expenseId === null) {
+            addError(errorContainer, 'Please select an expense to delete.');
             return;
         }
 
         const formData = {
-            action: 'delete_budget',
-            category_id: categoryId
+            action: 'delete_expense',
+            expense_id: expenseId
         };
 
         $.ajax({
@@ -86,54 +148,17 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    loadBudgetData();
+                    loadExpenses();
                 } else {
-                    addError(response.message);
+                    addError(errorContainer, response.message);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                addError('An error occurred while processing your request. Please try again.');
+                console.log('AJAX threw an error when trying to delete an expense: ', errorThrown);
+				addError(errorContainer, 'An error occurred while processing your request. Please try again.');
             }
         });
     });
 
-    function loadBudgetData() {
-        $.ajax({
-            url: 'finance/budget-handler.php',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                const expenseCategory = $('#expense-category');
-                const deleteCategory = $('#delete-category');
-
-                expenseCategory.empty();
-                deleteCategory.empty();
-
-                if (data.length > 0) {
-                    $('#form-title').text('Edit Budget');
-                    $('#add-budget-btn').text('Update Budget');
-
-                    const expense = data[0];
-                    $('#budget-name').val(expense.expense_name);
-                    $('#monthly-expenditure').val(expense.monthly_expenditure);
-
-                    data.forEach(function(expense) {
-                        expenseCategory.append(new Option(expense.category_name, expense.category_id));
-                        deleteCategory.append(new Option(expense.category_name, expense.category_id));
-                    });
-
-                    expenseCategory.val(expense.category_id);
-                } else {
-                    $('#form-title').text('Create A Budget');
-                    $('#add-budget-btn').text('Add Budget');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                addError('An error occurred while loading the budget data. Please try again.');
-            }
-        });
-    }
-
-    loadBudgetData();
-});
+    });
 
