@@ -13,17 +13,18 @@ if ($user_id) {
         if ($action === 'add_expense') {
             $expense_name = $_POST['expense_name'] ?? '';
             $monthly_cost = $_POST['monthly_cost'] ?? '';
+			$description = $_POST['description'] ?? '';
             $category_id = $_POST['category_id'] ?? '';
 
             if ($expense_name && $monthly_cost && $category_id) {
-                $stmt = $pdo->prepare("INSERT INTO expenses (user_id, category_id, expense_name, monthly_expenditure) VALUES (:user_id, :category_id, :expense_name, :monthly_cost)");
-                if ($stmt->execute(['user_id' => $user_id, 'category_id' => $category_id, 'expense_name' => $expense_name, 'monthly_cost' => $monthly_cost])) {
+                $stmt = $pdo->prepare("INSERT INTO expenses (user_id, category_id, expense_name, monthly_expenditure, description) VALUES (:user_id, :category_id, :expense_name, :monthly_cost, :description)");
+                if ($stmt->execute(['user_id' => $user_id, 'category_id' => $category_id, 'expense_name' => $expense_name, 'monthly_cost' => $monthly_cost, 'description' => $description])) {
                     $response = ['status' => 'success'];
                 } else {
                     $response['message'] = 'Failed to add expense.';
                 }
             } else {
-                $response['message'] = 'All fields are required.';
+                $response['message'] = 'Category, expense name, and monthly cost are required.';
             }
         } elseif ($action === 'delete_expense') {
             $expense_id = $_POST['expense_id'] ?? '';
@@ -43,12 +44,12 @@ if ($user_id) {
         $action = $_GET['action'] ?? '';
 
         if ($action === 'get_expense_categories') {
-            $stmt = $pdo->prepare("SELECT category_id, category_name FROM expense_categories WHERE user_id = :user_id");
+            $stmt = $pdo->prepare("SELECT category_id, category_name, description FROM expense_categories WHERE user_id = :user_id");
             $stmt->execute(['user_id' => $user_id]);
             $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $response = ['status' => 'success', 'categories' => $categories];
         } elseif ($action === 'get_expenses') {
-            $stmt = $pdo->prepare("SELECT expense_id, expense_name, monthly_expenditure FROM expenses WHERE user_id = :user_id");
+            $stmt = $pdo->prepare("SELECT expense_id, expense_name, monthly_expenditure, description FROM expenses WHERE user_id = :user_id");
             $stmt->execute(['user_id' => $user_id]);
             $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $response = ['status' => 'success', 'expenses' => $expenses];

@@ -21,9 +21,14 @@ require("../includes/form.php");
                 echo '<input type="hidden" name="action" value="add_expense">';
                 renderTextInputField('text', 'expense-name', 'expense_name', 'Expense Name:', true);
                 renderTextInputField('number', 'monthly-cost', 'monthly_cost', 'Monthly Cost:', true, 'decimal');
-                renderFormEnd('Add Expense', 'add-expense-btn');
-            ?>
-            <div class="error"></div>
+                renderTextInputField('text', 'description', 'description', 'Description: (Optional)', false);
+				renderFormEnd('Add Expense', 'add-expense-btn');
+				
+			?>
+			
+
+
+			<div class="error"></div>
         </div>
 
         <div id="delete-expense-form">

@@ -14,8 +14,19 @@ $(document).ready(function() {
             selectElement.append(optionHtml);
         });
     }
+
+	function populateDeleteExpenseDropdown(expenses) {
+        const deleteExpenseSelect = $('#delete-expense');
+        deleteExpenseSelect.empty();
+        expenses.forEach(function(expense) {
+            const optionHtml = `<option value="${expense.expense_id}">${expense.expense_name}: $${expense.monthly_expenditure}</option>`;
+            deleteExpenseSelect.append(optionHtml);
+        });
+    }
+
 	loadCategories();
-    function loadCategories() {
+    
+	function loadCategories() {
 		console.log('Trying to load the categories...');
         $.ajax({
             url: 'finance/expense-handler.php',
@@ -26,13 +37,13 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     populateSelect($('#expense-category'), response.categories, 'category_id', 'category_name');
                     // Load expenses for the first category by default
+					let firstCategoryId;
 					if (response.categories.length > 0) {
-						const firstCategoryId = response.categories[0].category_id;
+						firstCategoryId = response.categories[0].category_id;
 					} else {
-						const firstCategoryId = null;
+						firstCategoryId = null;
 					}
-                    const firstCategoryId = response.categories.length > 0 ? response.categories[0].category_id : null;
-                    if (firstCategoryId) {
+				    if (firstCategoryId) {
                         loadExpensesByCategory(firstCategoryId);
                     }
                 } else {
@@ -58,7 +69,9 @@ $(document).ready(function() {
                     response.expenses.forEach(function(expense) {
                         const listItemHtml = `<li>${expense.expense_name}: $${expense.monthly_expenditure}</li>`;
                         expenseList.append(listItemHtml);
-                    });
+						populateDeleteExpenseDropdown(response.expenses);
+
+					});
                 } else {
                     console.log(response.message);
                 }
@@ -76,18 +89,24 @@ $(document).ready(function() {
 
         const expenseName = $('#expense-name').val().trim();
         const monthlyCost = $('#monthly-cost').val().trim();
-        const categoryId = $('#expense-category').val();
+        const description = $('#description').val().trim();
+		const categoryId = $('#expense-category').val();
 
         if (!expenseName || !monthlyCost || !categoryId) {
-            addError(errorContainer, 'All fields are required.');
+			console.log('missing');
+            addError(errorContainer, 'You must input at least the expense name, cost, and select the category it belongs to.');
             return;
-        }
+        } else{
+			console.log(categoryId);	
+		}
+		
 
         const formData = {
             action: 'add_expense',
             expense_name: expenseName,
             monthly_cost: monthlyCost,
-            category_id: categoryId
+            description: description,
+			category_id: categoryId
         };
 
         $.ajax({
@@ -99,6 +118,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     $('#expense-name').val('');
                     $('#monthly-cost').val('');
+					$('#description').val('');
                     // Reload expenses for the selected category
                     loadExpensesByCategory(categoryId);
                 } else {
