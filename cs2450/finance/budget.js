@@ -9,21 +9,31 @@ $(document).ready(function() {
 
     function addCategoryToList(categoryName, categoryId, categoryType, description) {
         const listId = categoryType === 'expense' ? '#expense-category-list ul' : '#income-category-list ul';
-        const newCategoryHtml = `
+        if (description) {
+			console.log(description);
+		}
+		let newCategoryHtml = `
             <li>
                 <span class="category-name">${categoryName}</span>
                 <button class="delete-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">x</button>
                 <button class="expand-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">+</button>
-                <button class="show-description-btn" data-category-id="${categoryId}" data-description="${description}">Show Description</button>
-				<div class="category-description" style="display: none;"></div>
-				<ul class="items-list" style="display: none;"></ul>
-            </li>
         `;
+		
+		if (description) {
+			newCategoryHtml += `
+				<button class="show-description-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">Show Description</button>
+				<div class="category-description" style="display: none;">${description}</div>`;
+		}	
+
+		newCategoryHtml += `
+            <ul class="items-list" style="display: none;"></ul>
+			</li>`;
+		
         $(listId).append(newCategoryHtml);
     }
 
     function handleFormSubmission(formId, inputId, actionType, categoryType, descriptionId) {
-        $(formId).off('submit').on('submit', function(event) {
+        $(formId).on('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
             const errorContainer = $(formId + ' .error');
@@ -41,7 +51,8 @@ $(document).ready(function() {
                 category_name: categoryName,
 				description: description
             };
-
+			console.log(`SUBMITTING FORM: ${JSON.stringify(formData)}`);
+			
             $.ajax({
                 url: 'finance/budget-handler.php',
                 type: 'POST',
@@ -72,12 +83,12 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.expense_categories) {
                     response.expense_categories.forEach(function(category) {
-                        addCategoryToList(category.category_name, category.category_id, 'expense');
+						addCategoryToList(category.category_name, category.category_id, 'expense', category.description);
                     });
                 }
                 if (response.income_categories) {
                     response.income_categories.forEach(function(category) {
-                        addCategoryToList(category.category_name, category.category_id, 'income');
+                        addCategoryToList(category.category_name, category.category_id, 'income', category.description);
                     });
                 }
             },
@@ -124,7 +135,7 @@ $(document).ready(function() {
             const $this = $(this);
             const categoryId = $this.data('category-id');
             const descriptionContainer = $this.siblings('.category-description');
-
+			const categoryType = $this.data('category-type');
             if (descriptionContainer.is(':visible')) {
                 descriptionContainer.slideUp();
                 $this.text('Show Description');
@@ -134,8 +145,9 @@ $(document).ready(function() {
                     type: 'POST',
                     data: {
                         action: 'get_description_by_category_id',
-                        category_id: categoryId
-                    },
+                        category_id: categoryId,
+						category_type: categoryType
+					},
                     dataType: 'json',
                     success: function(response) {
                         if (response.status === 'success') {
@@ -205,8 +217,8 @@ $(document).ready(function() {
     // Load categories when the page loads
     loadCategories();
 
-    handleFormSubmission('#add-expense-category-form', '#new-expense-category-name', 'add_expense_category', 'expense', '#description');
-    handleFormSubmission('#add-income-category-form', '#new-income-category-name', 'add_income_category', 'income', '#description');
+    handleFormSubmission('#add-expense-category-form', '#new-expense-category-name', 'add_expense_category', 'expense', '#expense-description');
+    handleFormSubmission('#add-income-category-form', '#new-income-category-name', 'add_income_category', 'income', '#income-description');
     handleCategoryDeletion();
     handleCategoryExpansion();
 	handleShowDescription();

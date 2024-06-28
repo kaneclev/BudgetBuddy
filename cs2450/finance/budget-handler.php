@@ -68,8 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	} elseif ($action === 'get_description_by_category_id') {
 		$category_id = $_POST['category_id'];
 		$category_type = $_POST['category_type'];
+		
 		$stmt = $pdo->prepare("SELECT description FROM $category_type WHERE category_id = :category_id");
-		if ($stmt->execute(['categort_id' => $category_id])) {
+		if ($stmt->execute(['category_id' => $category_id])) {
 			$description = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$response = [
 					'status' => 'success', 
@@ -102,11 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 	/* These queries will grab the expense and income categories from their respective tables by the user_id */
-	$expenseStmt = $pdo->prepare("SELECT category_id, category_name FROM expense_categories WHERE user_id = ?");
+	$expenseStmt = $pdo->prepare("SELECT category_id, category_name, description FROM expense_categories WHERE user_id = ?");
     $expenseStmt->execute([$user_id]);
     $expense_categories = $expenseStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $incomeStmt = $pdo->prepare("SELECT category_id, category_name FROM income_categories WHERE user_id = ?");
+    $incomeStmt = $pdo->prepare("SELECT category_id, category_name, description FROM income_categories WHERE user_id = ?");
     $incomeStmt->execute([$user_id]);
     $income_categories = $incomeStmt->fetchAll(PDO::FETCH_ASSOC);
 
