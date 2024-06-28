@@ -20,7 +20,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 							echo $baseUrl . 'accounts/login.php'; 
 						}
 					?>"
-               class="nav__link <?php if ($current_page == 'expenses.php') { echo 'nav__link--active'; } ?>">Expenses</a>
+               class="nav__link <?php if ($current_page == 'expense.php') { echo 'nav__link--active'; } ?>">Expenses</a>
         </li>
         <li class="nav__item">
             <a href="<?php 
@@ -42,16 +42,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 					?>"
                class="nav__link <?php if ($current_page == 'budget.php') { echo 'nav__link--active'; } ?>">Budget</a>
         </li>
-        <li class="nav__item">
-            <a href="<?php 
-						if ($logged_in) { 
-							echo $baseUrl . 'finance/goal.php'; 
-						} else { 
-							echo $baseUrl . 'accounts/login.php';		
-						}
-					?>"
-               class="nav__link <?php if ($current_page == 'goals.php') { echo 'nav__link--active'; } ?>">Goals</a>
-        </li>
-    </ul>
+        </ul>
 
 </nav>

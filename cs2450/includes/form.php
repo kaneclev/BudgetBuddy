@@ -29,22 +29,46 @@ function renderFormStart($formId, $action, $method) {
 
 // Some helper functions for ease of creation when other files use form.php
 
-// Create a text input field where the user inserts text (like for usernames, passwords, etc.)
-function renderTextInputField($type, $id, $name, $label) {
-	echo "<label for='$id'>$label</label>";
-	echo "<input type='$type' id='$id' name='$name' required>";
-	echo "<br>";
+function renderTextInputField($type, $id, $name, $label, $required = true, $inputmode = '') {
+    if ($required) {
+        $isRequired = 'required';
+    } else {
+        $isRequired = '';
+    }
+
+    if ($inputmode != '') {
+        $inputModeSet = 'inputmode="' . $inputmode . '"';
+    } else {
+        $inputModeSet = '';
+    }
+
+    echo "<label for='$id'>$label</label>";
+    echo "<input type='$type' id='$id' name='$name' $isRequired $inputModeSet>";
+    echo "<br>";
 }
 
 // Create a textarea input field where the user can input multiple lines of text
-function renderTextareaField($id, $name, $label) {
-	echo "<label for='$id'>$label</label>";
-	echo "<textarea id='$id' name='$name' required></textarea>";
-	echo "<br>";
+function renderTextareaField($id, $name, $label, $required = true, $inputmode = '') {
+    if ($required) {
+        $isRequired = 'required';
+    } else {
+        $isRequired = '';
+    }
 
+    if ($inputmode != '') {
+        $inputModeSet = 'inputmode="' . $inputmode . '"';
+    } else {
+        $inputModeSet = '';
+    }
+
+    echo "<div class='form-group'>";
+    echo "<label for='$id'>$label</label>";
+    echo "<textarea id='$id' name='$name' $isRequired $inputModeSet></textarea>";
+    echo "</div>";
 }
 
-// This is the end of the 'shell' for our form
+
+
 function renderFormEnd($submitLabel, $buttonId) {
 	echo "<button class='button--primary' type='submit' id='$buttonId'>$submitLabel</button>";
 	echo "<p class='error' style='display:none;'></p>";
