@@ -1,10 +1,11 @@
+<?php include('../includes/config.php'); ?>
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
 <meta charset="utf-8">
 <title>Your name</title>
-<meta name="author" content="Your name">
+<meta name="author" content="Kane Cleveland">
 <meta name="description" content="A site map to all my groovy assignments for the best course at UVM.">
 
 <style>
@@ -96,30 +97,37 @@ grid-area: grader-notes;
 padding: .5%;
 margin: .5%;
 }
+.left-indent {
+	padding-left: 20px;
+}
 </style>
 
 </head>
 
 <body>
-<figure>
-<img alt="Bob Erickson circ- 1982" src="images/bob-erickson.png">
-<figcaption>Heading off to my first Computer class.</figcaption>
-</figure>
 
 <h1>CS 2450 - Summer 2024 </h1>
-<h2>Your Name - Site map</h2>
+<h2>Kane Cleveland - Site map</h2>
+	
 <p><a href="ADMIN/code-viewer.php">My Admin Folder</a></p>
 
 <!-- ########################################### -->
 <section class="lab-layout">
-<h2 class="header">Final Project - <em>General title for your site</em>.</h2>
+<h2 class="header">Final Project - <em>Budget Buddy</em>.</h2>
 <section class="public-files">
 <h3>Public Files</h3>
 <p><a href="live-final/about.php">About page</a></p>
 <p><a href="live-final/array.php">Array page</a></p>
 <p><a href="live-final/detail.php">Detail page</a></p>
-<p><a href="includes/form.php">Form page</a></p>
-<p><a href="live-final/index.php">Home page</a></p>
+<p><a>Form pages</a></p>
+	<div class="left-indent">
+		<p><a href="accounts/login.php">Login Page</a></p>
+		<p><a> NOTE: the following are only supposed to be accessed after login, so to test form validation, please sign up with a random account. </a></p>	
+		<p><a href="finance/budget.php">Budget Page</a></p>
+		<p><a href="finance/expense.php">Expense Page</a></p>
+		<p><a href="finance/income.php">Income Page</a></p>
+	</div>
+<p><a href="index.php">Home page (dashboard)</a></p>
 </section>
 
 <section class="supporting-files">
@@ -131,8 +139,12 @@ margin: .5%;
 <p><a href="final/images/wireframe.png">Wireframe</a></p>
 
 <h3>JavaScript</h3>
-<p><a href="final/nameoffile.js">name of js file</a></p>
-<p><a href="final/nameoffile.js">repeat as many times as needed</a></p>
+<p><a href="js/dashboard.js">dashboard.js</a></p>
+<p><a href="accounts/login.js">login.js</a></p>
+<p><a href="accounts/signup.js">signup.js</a></p>
+<p><a href="finance/budget.js">budget.js</a></p>
+<p><a href="finance/expense.js">expense.js</a></p>
+<p><a href="finance/income.js">income.js</a></p>
 
 </section>
 
