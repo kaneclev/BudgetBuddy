@@ -25,6 +25,13 @@ include('includes/top.php');
 	  
 	
 		</div>
+                <canvas id="expenseChart" width="200" height="200"></canvas>
+            </div>
+            <div class="chart">
+                <h3>Income by Category</h3>
+                <canvas id="incomeChart" width="200" height="200"></canvas>
+            </div>
+        </div>
     </div>
 	
 
