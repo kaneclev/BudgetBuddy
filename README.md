@@ -7,7 +7,7 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
 
 **JavaScript Requirements**
 - [x] All form sanitization done in javascript
-- [ ] Use javascript to work with an array in some fashion
+- [x] Use javascript to work with an array in some fashion
 - [x] Use javascript to work with ajax in some fashion
 - [x] Use javascript (or JQuery) to work with images, the DOM, JSON files, and make notes in your sitemap where this occurs.
 
@@ -20,8 +20,8 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
     - [x] nav.php included in top 
     - [x] connect-DB.php included in top
     - [x] footer.php
-- [ ] A sitemap (sitemap.php) which reflects the final project
-    - [ ] Sitemap pushed to repo (commit message: Final project: updated site map)
+- [x] A sitemap (sitemap.php) which reflects the final project
+    - [x] Sitemap pushed to repo (commit message: Final project: updated site map)
 - [ ] Wireframes for the site linked on sitemap
     - [ ] Desktop wireframe named wireframe-desktop.png
     - [ ] Tablet wireframe named wireframe-tablet.png
@@ -66,9 +66,9 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
 - [x] Database table names should be good and descriptive.
 - [x] Database field names should be good and descriptive.
 - [x] All form data should be saved to a database table.
-- [ ] No printing the post array from the form.
+- [x] No printing the post array from the form.
 - [x] Create a new MySQL table to be used for content of your website (like lab 8) using phpMyAdmin. This is not the same table as your form.
-- [ ] Save all SQL statements in the file sql.php in the same format as previously.
+- [x] Save all SQL statements in the file sql.php in the same format as previously.
 - [x] Have at least five records in your MySQL table to display data on a web page.
 - [x] One page should open a MySQL data table and display the information in some way.
     - [x] Identify the page that displays data on your sitemap.
@@ -92,10 +92,10 @@ Source: [CS1080 Final Project Requirements](https://rerickso.w3.uvm.edu/BS/cs108
 **Etc. Requirements**
 - [ ] Create a 1-minute walkthrough video describing my project (Budget Buddy)
     - [ ] Link this video on the sitemap
-- [ ] Delete all files in the final folder not being used for this assignment.
+- [x] Delete all files in the final folder not being used for this assignment.
 - [ ] Make sure paragraph, lists, forms text is not centered. Centering boxes is okay.
 - [x] Make sure your table-viewer link is working
-- [ ] Include a link to sql.php on your main index under supporting documents.
+- [x] Include a link to sql.php on your main index under supporting documents.
 - [ ] Include a link to records.png on your main index under supporting documents.
 - [ ] (5% of your grade) Make sure your files all pass w3c HTML validation: [validator.w3.org](https://validator.w3.org/) NOTE: there should be no warnings or errors.
 - [ ] (5% of your grade) Make sure your files all pass w3c CSS validation: [validator.w3.org](https://validator.w3.org/) NOTE: there should be no warnings or errors.
