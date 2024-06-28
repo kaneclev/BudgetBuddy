@@ -117,7 +117,16 @@ margin: .5%;
 <section class="public-files">
 <h3>Public Files</h3>
 <p><a href="live-final/about.php">About page</a></p>
-<p><a href="live-final/array.php">Array page</a></p>
+
+<p><a>Array pages</a></p>
+<div class="left-indent">
+<p><a href="finance/budget.js">budget.js</a></p>
+<p><a href="finance/expense.js">expense.js</a></p>
+</div>
+<p><a>JQuery/AJAX</a></p>
+<div class="left-indent">
+<p><a>Basically all of the js scripts have some form of AJAX or JQuery (exchanging financial info, user info, etc.)</p></a>
+</div>
 <p><a href="live-final/detail.php">Detail page</a></p>
 <p><a>Form pages</a></p>
 	<div class="left-indent">
@@ -137,7 +146,8 @@ margin: .5%;
 <p><a href="final/css/layout-tablet.css">tablet style sheet</a></p>
 <p><a href="final/css/layout-phone.css">phone style sheet</a></p>
 <p><a href="final/images/wireframe.png">Wireframe</a></p>
-
+<h3>SQL query list</h3>
+<p><a href="sql.php">SQL List</a></p>
 <h3>JavaScript</h3>
 <p><a href="js/dashboard.js">dashboard.js</a></p>
 <p><a href="accounts/login.js">login.js</a></p>
