@@ -64,7 +64,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'status' => 'success',
             'expenses' => $expenses
         ];
+	
 	}
+
+	 elseif ($action === 'get_incomes') {
+            $category_id = $_POST['category_id'] ?? '';
+
+            if ($category_id) {
+                $stmt = $pdo->prepare("SELECT income_id, income_name, monthly_income FROM incomes WHERE user_id = :user_id AND category_id = :category_id");
+                $stmt->execute(['user_id' => $user_id, 'category_id' => $category_id]);
+                $incomes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $response = ['status' => 'success', 'incomes' => $incomes];
+            } else {
+                $response['message'] = 'Category ID is required.';
+            }
+        }
+
 }
 
 

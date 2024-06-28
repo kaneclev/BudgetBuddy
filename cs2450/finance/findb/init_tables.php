@@ -47,6 +47,7 @@ function createExpensesTable($pdo) {
         expense_name VARCHAR(100) NOT NULL,
         monthly_expenditure DECIMAL(10, 2) NOT NULL,
         description TEXT DEFAULT NULL,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
         FOREIGN KEY (category_id) REFERENCES expense_categories(category_id) ON DELETE CASCADE
     );";
@@ -67,8 +68,9 @@ function createIncomeCategoriesTable($pdo) {
         category_name VARCHAR(100) NOT NULL,
         description TEXT DEFAULT NULL,
 		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
-    );";
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+		FOREIGN KEY (category_id) REFERENCES users(user_id) ON DELETE CASCADE
+	);";
 
     try {
         $stmt = $pdo->prepare($query);
@@ -81,11 +83,13 @@ function createIncomeCategoriesTable($pdo) {
 function createIncomeTable($pdo) {
 	$query = "
     CREATE TABLE IF NOT EXISTS incomes (
-        category_id INT PRIMARY KEY AUTO_INCREMENT,
-        user_id INT,
+        income_id INT PRIMARY KEY AUTO_INCREMENT,
+		user_id INT,
+        category_id INT,
         income_name VARCHAR(100) NOT NULL,
         description TEXT DEFAULT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        monthly_income DECIMAL(10, 2) NOT NULL,
+		created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );";
 

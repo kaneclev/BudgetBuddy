@@ -20,13 +20,6 @@ $user_id = $_SESSION['user_id'];
 			<div class="error"></div>
 		</div>		
 			<br>	
-		<div id="expense-category-list">
-			<a>Your Expense Categories</a>
-			<!-- for creating the lists as the user loads the page -->	
-			<ul>
-            </ul>
-
-		</div>
 			<br>
 	<div id="add-income-category-form">
 			<?php 
@@ -36,16 +29,20 @@ $user_id = $_SESSION['user_id'];
 				renderFormEnd('Add Category', 'add-income-category-btn');
 			?>
 			<div class="error"></div>
-		</div>
+	</div>
 			<br>
-		<div id="income-category-list">
-			<a>Your Income Categories</a>
-	
-			<ul>
-            <!-- same thing here; income categories which are associated with the session's user_id will get loaded here -->
-			</ul>
+	<div class="category-container">
+		<button class="expand-category-btn" data-category-id="1" data-category-type="expense">+</button>
+		<span>Expense Category Name</span>
+		<ul class="items-list" style="display: none;"></ul>
+	</div>
+	<div class="category-container">
+		<button class="expand-category-btn" data-category-id="2" data-category-type="income">+</button>
+		<span>Income Category Name</span>
+		<ul class="items-list" style="display: none;"></ul>
+	</div>
 
-		</div> 
+
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="finance/budget.js"></script>
 	</div>
