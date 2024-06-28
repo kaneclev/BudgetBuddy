@@ -21,6 +21,30 @@ async function getSessionData() {
 
     console.log(curr_page);
     loadDashboard(content);
+
+	const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+    const incomeCtx = document.getElementById('incomeChart').getContext('2d');
+
+
+
+
+	 try {
+        const financialData = await fetchFinancialData();
+        const expenseLabels = financialData.expenses.map(item => item.category_name);
+        const expenseValues = financialData.expenses.map(item => item.total_expenditure);
+        const incomeLabels = financialData.incomes.map(item => item.category_name);
+        const incomeValues = financialData.incomes.map(item => item.total_income);
+
+        renderChart(expenseCtx, expenseLabels, expenseValues, 'Expenses by Category');
+        renderChart(incomeCtx, incomeLabels, incomeValues, 'Income by Category');
+
+        displayFinancialInfo(financialData.expenses, financialData.incomes);
+    } catch (error) {
+        console.error('Failed to load financial data:', error);
+    }
+	
+
+
 });
 
 async function fetchFinancialData() {
@@ -28,6 +52,50 @@ async function fetchFinancialData() {
     const data = await response.json();
     return data;
 }
+
+function renderChart(ctx, labels, values, title) {
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: title,
+                data: values,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: title
+                }
+            }
+        },
+    });
+}
+
+
 
 async function loadDashboard(content) {
     if (content) {
@@ -89,11 +157,18 @@ async function loadDashboard(content) {
 }
 
 function displayFinancialInfo(expenses, incomes) {
-    const totalExpenses = expenses.reduce((acc, item) => acc + parseFloat(item.total_expenditure), 0);
-    const totalIncomes = incomes.reduce((acc, item) => acc + parseFloat(item.total_income), 0);
-    const netIncome = totalIncomes - totalExpenses;
-    const savingsRate = totalIncomes ? ((netIncome / totalIncomes) * 100).toFixed(2) : 0;
-    const totalSavings = netIncome; // Simplified for demonstration purposes
+ 
+	const totalExpenses = calculateTotal(expenses, 'total_expenditure');
+	const totalIncomes = calculateTotal(incomes, 'total_income');	
+
+	const netIncome = totalIncomes - totalExpenses;
+    if (totalIncomes) {
+    savingsRate = ((netIncome / totalIncomes) * 100).toFixed(2);
+	} else {
+		savingsRate = 0;
+	}
+	
+	const totalSavings = netIncome; 
 
     document.getElementById('net-income').textContent = `$${netIncome.toFixed(2)}`;
     document.getElementById('savings-rate').textContent = `${savingsRate}%`;
@@ -113,13 +188,45 @@ function displayFinancialInfo(expenses, incomes) {
         incomeBreakdown.appendChild(li);
     });
 
-    const financialGoals = document.getElementById('financial-goals');
-    const goalLi = document.createElement('li');
-    goalLi.textContent = 'Example Goal: Save $5000 in 6 months';
-    financialGoals.appendChild(goalLi);
+   }
+
+
+function calculateTotal(data, key) {
+	let total = 0;
+    for (let i = 0; i < data.length; i++) {
+        total += parseFloat(data[i][key]);
+    }
+	return total; 
 }
 
+// Function to calculate savings rate
+function calculateSavingsRate(netIncome, totalIncomes) {
+    return totalIncomes ? ((netIncome / totalIncomes) * 100).toFixed(2) : 0;
+}
 
+// Function to update financial display
+function updateFinancialDisplay(netIncome, savingsRate, totalSavings) {
+    document.getElementById('net-income').textContent = `$${formatCurrency(netIncome)}`;
+    document.getElementById('savings-rate').textContent = `${savingsRate}%`;
+    document.getElementById('total-savings').textContent = `$${formatCurrency(totalSavings)}`;
+}
+
+// Function to format number to currency
+function formatCurrency(amount) {
+	
+
+
+    return parseFloat(amount).toFixed(2);
+}
+
+// Function to populate breakdown list
+function populateBreakdown(element, data, key) {
+    data.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.category_name}: $${formatCurrency(item[key])}`;
+        element.appendChild(li);
+    });
+}
 
 function addEventListeners(logged_in) {
     const sitemap_button = document.getElementById('siteMapButton');
