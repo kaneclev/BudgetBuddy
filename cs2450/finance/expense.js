@@ -17,9 +17,13 @@ $(document).ready(function() {
     }
 
 	function populateDeleteExpenseDropdown(expenses) {
-        const deleteExpenseSelect = $('#delete-expense');
+	    const deleteExpenseSelect = $('#delete-expense');
         deleteExpenseSelect.empty();
-        expenses.forEach(function(expense) {
+    	if (expenses == '') {
+			deleteExpenseSelect.empty();
+		}
+
+		expenses.forEach(function(expense) {
             const optionHtml = `<option value="${expense.expense_id}">${expense.expense_name}: $${expense.monthly_expenditure}</option>`;
             deleteExpenseSelect.append(optionHtml);
         });
@@ -73,9 +77,9 @@ $(document).ready(function() {
                     response.expenses.forEach(function(expense) {
                         const listItemHtml = `<li>${expense.expense_name}: $${expense.monthly_expenditure}</li>`;
                         expenseList.append(listItemHtml);
-						populateDeleteExpenseDropdown(response.expenses);
-
 					});
+					
+					populateDeleteExpenseDropdown(response.expenses);
                 } else {
                     console.log(response.message);
                 }
@@ -91,10 +95,10 @@ $(document).ready(function() {
         const errorContainer = $('#expense-form .error');
         clearAllErrors(errorContainer);
 
-        const expenseName = $('#expense-name').val().trim();
-        const monthlyCost = $('#monthly-cost').val().trim();
-        const description = $('#description').val().trim();
-		const categoryId = $('#expense-category').val();
+        let expenseName = $('#expense-name').val();
+        let monthlyCost = $('#monthly-cost').val();
+        let description = $('#description').val();
+		let categoryId = $('#expense-category').val();
 
         if (!expenseName || !monthlyCost || !categoryId) {
 			console.log('missing');
@@ -102,6 +106,12 @@ $(document).ready(function() {
             return;
         } else{
 			console.log(categoryId);	
+			expenseName = $('#expense-name').val().trim();
+			monthlyCost = $('#monthly-cost').val().trim();
+			if (description) {
+				description = $('#description').val().trim();
+			}
+			categoryId = $('#expense-category').val().trim();
 		}
 		
 
@@ -162,9 +172,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     // Reload expenses for the selected category
                     const selectedCategoryId = $('#expense-category').val();
-                    if (selectedCategoryId) {
-                        loadExpensesByCategory(selectedCategoryId);
-                    }
+                    loadExpensesByCategory(selectedCategoryId);
                 } else {
                     addError(errorContainer, response.message);
                 }

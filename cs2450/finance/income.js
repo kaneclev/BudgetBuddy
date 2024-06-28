@@ -16,6 +16,19 @@ $(document).ready(function() {
         });
     }
 
+	function populateDeleteIncomeDropdown(incomes) {
+	    const deleteIncomeSelect = $('#delete-income');
+        deleteIncomeSelect.empty();
+		if (incomes == '') {
+			deleteIncomeSelect.empty();
+		}
+
+		incomes.forEach(function(income) {
+            const optionHtml = `<option value="${income.income_id}">${income.income_name}: ${income.monthly_income}</option>`;
+            deleteIncomeSelect.append(optionHtml);
+        });
+    }
+
     function loadCategories() {
         $.ajax({
             url: 'finance/income-handler.php',
@@ -60,9 +73,10 @@ $(document).ready(function() {
                     const incomeList = $('#income-list');
                     incomeList.empty(); // Clear existing items
                     response.incomes.forEach(function(income) {
-                        const listItemHtml = `<li>${income.income_name}: $${income.monthly_income}</li>`;
-                        incomeList.append(listItemHtml);
+						const listItemHtml = `<li>${income.income_name}: $${income.monthly_income}</li>`;
+						incomeList.append(listItemHtml);
                     });
+					populateDeleteIncomeDropdown(response.incomes);
                 } else {
 					console.log('Response: ', response);
                     console.log(response.message);
@@ -80,15 +94,17 @@ $(document).ready(function() {
         const errorContainer = $('#income-form .error');
         clearAllErrors(errorContainer);
 
-        const incomeName = $('#income-name').val().trim();
-        const monthlyIncome = $('#monthly-income').val().trim();
-        const description = $('#description').val().trim();
-		const categoryId = $('#income-category').val();
+        let incomeName = $('#income-name').val();
+        let monthlyIncome = $('#monthly-income').val();
+        let description = $('#description').val();
+		let categoryId = $('#income-category').val();
 
         if (!incomeName || !monthlyIncome || !categoryId) {
             addError(errorContainer, 'You must at least specify the income name, monthly amount, and category.');
             return;
-        }
+        } else {
+			
+		}
 
         const formData = {
             action: 'add_income',

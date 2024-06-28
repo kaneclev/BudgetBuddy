@@ -22,7 +22,6 @@ require("../includes/form.php");
                 echo '<input type="hidden" name="action" value="add_income">';
                 renderTextInputField('text', 'income-name', 'income_name', 'Income Name:', true);
                 renderTextInputField('number', 'monthly-income', 'monthly_income', 'Monthly Income:', true, 'decimal');
-				renderTextInputField('text', 'description', 'description', 'Description: (Optional)', false);
 				renderFormEnd('Add Income', 'add-income-btn');
             ?>
             <div class="error"></div>
