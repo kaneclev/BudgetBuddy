@@ -70,20 +70,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$category_type = $_POST['category_type'];
 		
 		$stmt = $pdo->prepare("SELECT description FROM $category_type WHERE category_id = :category_id");
-		if ($stmt->execute(['category_id' => $category_id])) {
-			$description = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			$response = [
-					'status' => 'success', 
-					'description' => $description
-			];
-		} else {
-			$response['message'] = "Couldnt retrieve description for $category_type";
+		$stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+		if ($stmt->execute()) {
+			$description = $stmt->fetch(PDO::FETCH_ASSOC); // Use fetch instead of fetchAll
+        if ($description) {
+            $response = [
+                'status' => 'success',
+                'description' => $description['description']
+            ];
+        } else {
+			$response = ['statement' => $stmt];	
+			}
 		}
-		
 
-	}
-
-	 elseif ($action === 'get_incomes') {
+	} elseif ($action === 'get_incomes') {
             $category_id = $_POST['category_id'] ?? '';
 
             if ($category_id) {

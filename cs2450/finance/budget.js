@@ -9,9 +9,6 @@ $(document).ready(function() {
 
     function addCategoryToList(categoryName, categoryId, categoryType, description) {
         const listId = categoryType === 'expense' ? '#expense-category-list ul' : '#income-category-list ul';
-        if (description) {
-			console.log(description);
-		}
 		let newCategoryHtml = `
             <li>
                 <span class="category-name">${categoryName}</span>
@@ -135,7 +132,12 @@ $(document).ready(function() {
             const $this = $(this);
             const categoryId = $this.data('category-id');
             const descriptionContainer = $this.siblings('.category-description');
-			const categoryType = $this.data('category-type');
+			let categoryType = $this.data('category-type');
+			if (categoryType === 'expense') {
+				categoryType = 'expense_categories';
+			} else {
+				categoryType = 'income_categories';
+			}
             if (descriptionContainer.is(':visible')) {
                 descriptionContainer.slideUp();
                 $this.text('Show Description');
@@ -152,11 +154,11 @@ $(document).ready(function() {
                     success: function(response) {
                         if (response.status === 'success') {
                             const description = response.description;
-                            descriptionContainer.html(description);
+							descriptionContainer.html(description);
                             descriptionContainer.slideDown();
                             $this.text('Hide Description');
                         } else {
-                            alert(response.message);
+							 console.log('Unable to query for description.');
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -201,8 +203,7 @@ $(document).ready(function() {
                             itemsList.slideDown();
                             $this.text('-');
                         } else {
-                            console.log(response);
-                            alert(response.message);
+                            console.log('Unable to query financial info.');
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
