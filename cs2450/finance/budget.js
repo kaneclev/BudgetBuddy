@@ -7,29 +7,30 @@ $(document).ready(function() {
         errorContainer.empty();
     }
 
-    function addCategoryToList(categoryName, categoryId, categoryType) {
+    function addCategoryToList(categoryName, categoryId, categoryType, description) {
         const listId = categoryType === 'expense' ? '#expense-category-list ul' : '#income-category-list ul';
         const newCategoryHtml = `
             <li>
                 <span class="category-name">${categoryName}</span>
                 <button class="delete-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">x</button>
                 <button class="expand-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">+</button>
-                <button class="show-description-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">Show Description</button>
+                <button class="show-description-btn" data-category-id="${categoryId}" data-description="${description}">Show Description</button>
+				<div class="category-description" style="display: none;"></div>
 				<ul class="items-list" style="display: none;"></ul>
             </li>
         `;
         $(listId).append(newCategoryHtml);
     }
 
-    function handleFormSubmission(formId, inputId, actionType, categoryType) {
-        $(formId).on('submit', function(event) {
+    function handleFormSubmission(formId, inputId, actionType, categoryType, descriptionId) {
+        $(formId).off('submit').on('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
 
             const errorContainer = $(formId + ' .error');
             clearAllErrors(errorContainer);
 
             const categoryName = $(inputId).val().trim();
-
+			const description = $(descriptionId).val().trim();
             // Client-side validation
             if (categoryName === '') {
                 addError(errorContainer, 'Category name is required.');
@@ -49,9 +50,10 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.status === 'success') {
                         // Add the new category to the list without reloading
-                        addCategoryToList(categoryName, response.category_id, categoryType);
+                        addCategoryToList(categoryName, response.category_id, categoryType, description);
                         $(inputId).val(''); // Clear the input field
-                    } else {
+						$(descriptionId).val('');
+					} else {
                         addError(errorContainer, response.message);
                     }
                 },
@@ -116,7 +118,47 @@ $(document).ready(function() {
         });
     }
 
-    function handleCategoryExpansion() {
+    
+	function handleShowDescription() {
+	 $(document).on('click', '.show-description-btn', function() {
+            const $this = $(this);
+            const categoryId = $this.data('category-id');
+            const descriptionContainer = $this.siblings('.category-description');
+
+            if (descriptionContainer.is(':visible')) {
+                descriptionContainer.slideUp();
+                $this.text('Show Description');
+            } else {
+                $.ajax({
+                    url: 'finance/budget-handler.php',
+                    type: 'POST',
+                    data: {
+                        action: 'get_description_by_category_id',
+                        category_id: categoryId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const description = response.description;
+                            descriptionContainer.html(description);
+                            descriptionContainer.slideDown();
+                            $this.text('Hide Description');
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('AJAX error:', textStatus, errorThrown);
+                        alert('An error occurred while fetching the description. Please try again.');
+                    }
+                });
+            }
+        });
+    }
+
+
+
+	function handleCategoryExpansion() {
         $(document).on('click', '.expand-category-btn', function() {
             const $this = $(this);
             const categoryId = $(this).data('category-id');
@@ -163,9 +205,10 @@ $(document).ready(function() {
     // Load categories when the page loads
     loadCategories();
 
-    handleFormSubmission('#add-expense-category-form', '#new-expense-category-name', 'add_expense_category', 'expense');
-    handleFormSubmission('#add-income-category-form', '#new-income-category-name', 'add_income_category', 'income');
+    handleFormSubmission('#add-expense-category-form', '#new-expense-category-name', 'add_expense_category', 'expense', '#description');
+    handleFormSubmission('#add-income-category-form', '#new-income-category-name', 'add_income_category', 'income', '#description');
     handleCategoryDeletion();
     handleCategoryExpansion();
+	handleShowDescription();
 });
 

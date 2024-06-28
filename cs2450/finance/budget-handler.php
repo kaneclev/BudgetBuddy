@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $response['message'] = 'Invalid category type.';
         }
     } elseif ($action === 'get_expenses') {
-        $category_id = $_POST['category_id'];
+		$category_id = $_POST['category_id'];
         $stmt = $pdo->prepare("SELECT expense_name, monthly_expenditure FROM expenses WHERE category_id = ? AND user_id = ?");
         $stmt->execute([$category_id, $user_id]);
         $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -63,8 +63,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $response = [
             'status' => 'success',
             'expenses' => $expenses
-        ];
+        ];       
 	
+	} elseif ($action === 'get_description_by_category_id') {
+		$category_id = $_POST['category_id'];
+		$category_type = $_POST['category_type'];
+		$stmt = $pdo->prepare("SELECT description FROM $category_type WHERE category_id = :category_id");
+		if ($stmt->execute(['categort_id' => $category_id])) {
+			$description = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$response = [
+					'status' => 'success', 
+					'description' => $description
+			];
+		} else {
+			$response['message'] = "Couldnt retrieve description for $category_type";
+		}
+		
+
 	}
 
 	 elseif ($action === 'get_incomes') {
