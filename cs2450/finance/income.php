@@ -11,6 +11,7 @@ require("../includes/form.php");
             <h2>What kind of income are you expecting?</h2>
             <h3>Add an income source to any of the income categories you defined in your budget to get started.</h3>
             <br>
+			<div class="notice"></div>
             <label for="income-category">Income Category:</label>
             <select id="income-category" name="category_id">
                 <!-- Options will be populated dynamically -->
@@ -21,7 +22,8 @@ require("../includes/form.php");
                 echo '<input type="hidden" name="action" value="add_income">';
                 renderTextInputField('text', 'income-name', 'income_name', 'Income Name:', true);
                 renderTextInputField('number', 'monthly-income', 'monthly_income', 'Monthly Income:', true, 'decimal');
-                renderFormEnd('Add Income', 'add-income-btn');
+				renderTextInputField('text', 'description', 'description', 'Description: (Optional)', false);
+				renderFormEnd('Add Income', 'add-income-btn');
             ?>
             <div class="error"></div>
         </div>

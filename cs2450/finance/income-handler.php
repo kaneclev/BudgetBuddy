@@ -13,11 +13,12 @@ if ($user_id) {
         if ($action === 'add_income') {
             $income_name = $_POST['income_name'] ?? '';
             $monthly_income = $_POST['monthly_income'] ?? '';
-            $category_id = $_POST['category_id'] ?? '';
+            $description = $_POST['description'] ?? null;
+			$category_id = $_POST['category_id'] ?? '';
 
             if ($income_name && $monthly_income && $category_id) {
-                $stmt = $pdo->prepare("INSERT INTO incomes (user_id, category_id, income_name, monthly_income) VALUES (:user_id, :category_id, :income_name, :monthly_income)");
-                if ($stmt->execute(['user_id' => $user_id, 'category_id' => $category_id, 'income_name' => $income_name, 'monthly_income' => $monthly_income])) {
+                $stmt = $pdo->prepare("INSERT INTO incomes (user_id, category_id, income_name, monthly_income, description) VALUES (:user_id, :category_id, :income_name, :monthly_income, :description)");
+                if ($stmt->execute(['user_id' => $user_id, 'category_id' => $category_id, 'income_name' => $income_name, 'monthly_income' => $monthly_income, 'description' => $description])) {
                     $response = ['status' => 'success'];
                 } else {
                     $response['message'] = 'Failed to add income.';

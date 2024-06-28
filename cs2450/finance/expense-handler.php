@@ -13,7 +13,7 @@ if ($user_id) {
         if ($action === 'add_expense') {
             $expense_name = $_POST['expense_name'] ?? '';
             $monthly_cost = $_POST['monthly_cost'] ?? '';
-			$description = $_POST['description'] ?? '';
+			$description = $_POST['description'] ?? null;
             $category_id = $_POST['category_id'] ?? '';
 
             if ($expense_name && $monthly_cost && $category_id) {

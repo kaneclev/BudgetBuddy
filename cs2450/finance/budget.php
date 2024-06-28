@@ -13,7 +13,8 @@ $user_id = $_SESSION['user_id'];
                 renderFormStart('add-expense-category-form', 'finance/budget-handler.php', 'POST');
                 echo '<input type="hidden" name="action" value="add_expense_category">';
                 renderTextInputField('text', 'new-expense-category-name', 'new_expense_category_name', 'Add an expense category:', true);
-                renderFormEnd('Add Category', 'add-expense-category-btn');
+				renderTextInputField('text', 'description', 'description', 'Description: (Optional)', false);
+				renderFormEnd('Add Category', 'add-expense-category-btn');
             ?>
             <div class="error"></div>
         </div>
@@ -28,7 +29,8 @@ $user_id = $_SESSION['user_id'];
                 renderFormStart('add-income-category-form', 'finance/budget-handler.php', 'POST');
                 echo '<input type="hidden" name="action" value="add_income_category">';
                 renderTextInputField('text', 'new-income-category-name', 'new_income_category_name', 'Add an income category:', true);
-                renderFormEnd('Add Category', 'add-income-category-btn');
+                renderTextInputField('text', 'description', 'description', 'Description: (Optional)', false);
+				renderFormEnd('Add Category', 'add-income-category-btn');
             ?>
             <div class="error"></div>
         </div>

@@ -1,7 +1,8 @@
 $(document).ready(function() {
     function addError(errorContainer, message) {
         errorContainer.append('<div class="error">' + message + '</div>');
-    }
+		errorContainer.css('display', 'block');
+	}
 
     function clearAllErrors(errorContainer) {
         errorContainer.empty();
@@ -25,8 +26,17 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     populateSelect($('#income-category'), response.categories, 'category_id', 'category_name');
                     // Load income sources for the first category by default
-                    const firstCategoryId = response.categories.length > 0 ? response.categories[0].category_id : null;
-                    if (firstCategoryId) {
+					let firstCategoryId;
+                    if (response.categories.length > 0) {
+                        firstCategoryId = response.categories[0].category_id;
+                    } else {
+                        firstCategoryId = null;
+                        let categoryNotice = $("#add-income-form .notice");
+                        categoryNotice.append("<a>Don't see a category? Create one under the Budget page.</a>");
+                    }                   
+
+ 
+					if (firstCategoryId) {
                         loadIncomeByCategory(firstCategoryId);
                     }
                 } else {
@@ -72,10 +82,11 @@ $(document).ready(function() {
 
         const incomeName = $('#income-name').val().trim();
         const monthlyIncome = $('#monthly-income').val().trim();
-        const categoryId = $('#income-category').val();
+        const description = $('#description').val().trim();
+		const categoryId = $('#income-category').val();
 
         if (!incomeName || !monthlyIncome || !categoryId) {
-            addError(errorContainer, 'All fields are required.');
+            addError(errorContainer, 'You must at least specify the income name, monthly amount, and category.');
             return;
         }
 
@@ -83,6 +94,7 @@ $(document).ready(function() {
             action: 'add_income',
             income_name: incomeName,
             monthly_income: monthlyIncome,
+			description: description,
             category_id: categoryId
         };
 
@@ -95,7 +107,8 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     $('#income-name').val('');
                     $('#monthly-income').val('');
-                    // Reload income sources for the selected category
+                    $('#description').val('');
+					// Reload income sources for the selected category
                     loadIncomeByCategory(categoryId);
                 } else {
                     addError(errorContainer, response.message);

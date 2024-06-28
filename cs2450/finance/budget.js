@@ -14,7 +14,8 @@ $(document).ready(function() {
                 <span class="category-name">${categoryName}</span>
                 <button class="delete-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">x</button>
                 <button class="expand-category-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">+</button>
-                <ul class="items-list" style="display: none;"></ul>
+                <button class="show-description-btn" data-category-id="${categoryId}" data-category-type="${categoryType}">Show Description</button>
+				<ul class="items-list" style="display: none;"></ul>
             </li>
         `;
         $(listId).append(newCategoryHtml);
@@ -36,7 +37,8 @@ $(document).ready(function() {
             }
             const formData = {
                 action: actionType,
-                category_name: categoryName
+                category_name: categoryName,
+				description: description
             };
 
             $.ajax({

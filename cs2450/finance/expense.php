@@ -11,8 +11,9 @@ require("../includes/form.php");
             <h2>What kind of expenses are you expecting?</h2>
             <h3>Add an expenditure to any of the expense categories you defined in your budget to get started.</h3>
             <br>
-            <label for="expense-category">Expense Category:</label>
-            <select id="expense-category" name="category_id">
+            <div class="notice"></div>
+			<label for="expense-category">Expense Category:</label> 
+			<select id="expense-category" name="category_id">
                 <!-- Options will be populated dynamically -->
             </select>
             <br>

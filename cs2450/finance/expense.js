@@ -1,7 +1,8 @@
 $(document).ready(function() {
     function addError(errorContainer, message) {
         errorContainer.append('<div class="error">' + message + '</div>');
-    }
+		errorContainer.css('display', 'block');
+	}
 
     function clearAllErrors(errorContainer) {
         errorContainer.empty();
@@ -42,6 +43,9 @@ $(document).ready(function() {
 						firstCategoryId = response.categories[0].category_id;
 					} else {
 						firstCategoryId = null;
+						console.log("trying to make sum rn");
+						let categoryNotice = $("#add-expense-form .notice");
+						categoryNotice.append("<a>Don't see a category? Create one under the Budget page.</a>");
 					}
 				    if (firstCategoryId) {
                         loadExpensesByCategory(firstCategoryId);
