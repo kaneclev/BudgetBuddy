@@ -1,8 +1,4 @@
-
-
-
-
-		// definitions for global scope vars
+// definitions for global scope vars
 // globally define some object that i can use like a map for k-v pairs for my sess data
 let sess_map;
 
@@ -16,10 +12,7 @@ async function getSessionData() {
 }
 
 
-// function for loading in elements from the json file from getSessionData()
-
-
-document.addEventListener('DOMContentLoaded', async function() {
+	document.addEventListener('DOMContentLoaded', async function() {
     let content = document.getElementById('dashboard');
     let root_filepath = content.getAttribute('root_path');
     let curr_page = window.location.pathname;
@@ -30,9 +23,13 @@ document.addEventListener('DOMContentLoaded', async function() {
     loadDashboard(content);
 });
 
+async function fetchFinancialData() {
+    const response = await fetch('dashboard-handler.php');
+    const data = await response.json();
+    return data;
+}
 
-
-function loadDashboard(content) {
+async function loadDashboard(content) {
     if (content) {
         // Init session variables as null until we can confirm they exist
         let logged_in = null;
@@ -46,7 +43,7 @@ function loadDashboard(content) {
         if (logged_in) {
             username = sess_map.username;
             user_id = sess_map.user_id;
-            content.innerHTML =` 
+            content.innerHTML =`
                     <div id="dashboard__header">
                         <h2 id="welcome__message">Welcome back, ${username}</h2>
                     </div>
@@ -54,12 +51,29 @@ function loadDashboard(content) {
                         <p>Overview of your financial plan</p>
                     </div>
                     <div id="dashboard__graphic">
-						<img src="/cs2450/design/dash_banner.png" class="dashboard__banner" alt="Dashboard Banner">
-					</div>
+                        <img src="/cs2450/design/dash_banner.png" class="dashboard__banner" alt="Dashboard Banner">
+                    </div>
+                    <div id="charts-container">
+                        <div class="chart">
+                            <h3>Expenses by Category</h3>
+                            <canvas id="expenseChart" width="200" height="200"></canvas>
+                        </div>
+                        <div class="chart">
+                            <h3>Income by Category</h3>
+                            <canvas id="incomeChart" width="200" height="200"></canvas>
+                        </div>
+                    </div>
             `;
 
+            const financialData = await fetchFinancialData();
+            if (financialData.status === 'success') {
+                displayFinancialInfo(financialData.expenses, financialData.incomes);
+            } else {
+                console.error('Failed to load financial data:', financialData.message);
+            }
+
         } else {
-            content.innerHTML =` 
+            content.innerHTML =`
                     <div id="dashboard__header">
                         <h2 id="welcome__message">Dashboard</h2>
                     </div>
@@ -74,8 +88,40 @@ function loadDashboard(content) {
     }
 }
 
-function addEventListeners(logged_in) {
+function displayFinancialInfo(expenses, incomes) {
+    const totalExpenses = expenses.reduce((acc, item) => acc + parseFloat(item.total_expenditure), 0);
+    const totalIncomes = incomes.reduce((acc, item) => acc + parseFloat(item.total_income), 0);
+    const netIncome = totalIncomes - totalExpenses;
+    const savingsRate = totalIncomes ? ((netIncome / totalIncomes) * 100).toFixed(2) : 0;
+    const totalSavings = netIncome; // Simplified for demonstration purposes
 
+    document.getElementById('net-income').textContent = `$${netIncome.toFixed(2)}`;
+    document.getElementById('savings-rate').textContent = `${savingsRate}%`;
+    document.getElementById('total-savings').textContent = `$${totalSavings.toFixed(2)}`;
+
+    const expenseBreakdown = document.getElementById('expense-breakdown');
+    expenses.forEach(expense => {
+        const li = document.createElement('li');
+        li.textContent = `${expense.category_name}: $${expense.total_expenditure}`;
+        expenseBreakdown.appendChild(li);
+    });
+
+    const incomeBreakdown = document.getElementById('income-breakdown');
+    incomes.forEach(income => {
+        const li = document.createElement('li');
+        li.textContent = `${income.category_name}: $${income.total_income}`;
+        incomeBreakdown.appendChild(li);
+    });
+
+    const financialGoals = document.getElementById('financial-goals');
+    const goalLi = document.createElement('li');
+    goalLi.textContent = 'Example Goal: Save $5000 in 6 months';
+    financialGoals.appendChild(goalLi);
+}
+
+
+
+function addEventListeners(logged_in) {
     const sitemap_button = document.getElementById('siteMapButton');
     if (sitemap_button) {
         console.log("sitemap button exists");
@@ -88,16 +134,4 @@ function addEventListeners(logged_in) {
     // If the page we are on is the dashboard, add event listeners to buttons in the dashboard
 }
 
-window.addEventListener('scroll', function() {
-    var loginContainer = document.querySelector('.login-container');
-    var signupContainer = document.querySelector('.signup-container');
-    var headerHeight = document.querySelector('.main-header').offsetHeight;
-    var navbarHeight = document.querySelector('.nav').offsetHeight;
-    if (window.scrollY >= headerHeight || window.scrollY >= navbarHeight) {
-        loginContainer.classList.add('fixed');
-        signupContainer.classList.add('fixed');
-    } else {
-        loginContainer.classList.remove('fixed');
-        signupContainer.classList.remove('fixed');
-    }
-});
+
