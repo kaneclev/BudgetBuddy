@@ -24,25 +24,11 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.status === 'success') {
                     populateSelect($('#expense-category'), response.categories, 'category_id', 'category_name');
-                } else {
-                    console.log(response.message);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('AJAX error:', textStatus, errorThrown);
-            }
-        });
-    }
-
-    function loadExpenses() {
-        $.ajax({
-            url: 'finance/expense-handler.php',
-            type: 'GET',
-            data: { action: 'get_expenses' },
-            dataType: 'json',
-            success: function(response) {
-                if (response.status === 'success') {
-                    populateSelect($('#delete-expense'), response.expenses, 'expense_id', 'expense_name');
+                    // Load expenses for the first category by default
+                    const firstCategoryId = response.categories.length > 0 ? response.categories[0].category_id : null;
+                    if (firstCategoryId) {
+                        loadExpensesByCategory(firstCategoryId);
+                    }
                 } else {
                     console.log(response.message);
                 }
@@ -61,7 +47,12 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    populateSelect($('#delete-expense'), response.expenses, 'expense_id', 'expense_name');
+                    const expenseList = $('#expense-list');
+                    expenseList.empty(); // Clear existing items
+                    response.expenses.forEach(function(expense) {
+                        const listItemHtml = `<li>${expense.expense_name}: $${expense.monthly_expenditure}</li>`;
+                        expenseList.append(listItemHtml);
+                    });
                 } else {
                     console.log(response.message);
                 }
@@ -100,9 +91,10 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    loadExpenses();
                     $('#expense-name').val('');
                     $('#monthly-cost').val('');
+                    // Reload expenses for the selected category
+                    loadExpensesByCategory(categoryId);
                 } else {
                     addError(errorContainer, response.message);
                 }
@@ -138,7 +130,11 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    loadExpenses();
+                    // Reload expenses for the selected category
+                    const selectedCategoryId = $('#expense-category').val();
+                    if (selectedCategoryId) {
+                        loadExpensesByCategory(selectedCategoryId);
+                    }
                 } else {
                     addError(errorContainer, response.message);
                 }
@@ -157,7 +153,7 @@ $(document).ready(function() {
         }
     });
 
+    // Load categories and initial expenses when the page loads
     loadCategories();
-    loadExpenses();
 });
 
