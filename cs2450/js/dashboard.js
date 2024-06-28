@@ -1,66 +1,72 @@
-// definitions for global scope vars
+// Definitions for global scope vars
 // globally define some object that i can use like a map for k-v pairs for my sess data
 let sess_map;
 
-// function for retrieving session variables via ajax from get-session-data.php
-
+// Function for retrieving session variables via ajax from get-session-data.php
 async function getSessionData() {
     const data_path = 'utils/get-session-data.php';
     const response = await fetch(data_path);
     const data = await response.json();
-    return data;
+    return data; // Return the session data as a JSON object
 }
 
-
-	document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function() {
     let content = document.getElementById('dashboard');
     let root_filepath = content.getAttribute('root_path');
     let curr_page = window.location.pathname;
     let root = '/cs2450/';
-    sess_map = await getSessionData();
+    sess_map = await getSessionData(); // Load session data
 
     console.log(curr_page);
     loadDashboard(content);
 
-	const expenseCtx = document.getElementById('expenseChart').getContext('2d');
+    // Get context for the charts
+    const expenseCtx = document.getElementById('expenseChart').getContext('2d');
     const incomeCtx = document.getElementById('incomeChart').getContext('2d');
 
-
-
-
-	 try {
-        const financialData = await fetchFinancialData();
+    try {
+        const financialData = await fetchFinancialData(); // Fetch the financial data
         const expenseLabels = financialData.expenses.map(item => item.category_name);
         const expenseValues = financialData.expenses.map(item => item.total_expenditure);
         const incomeLabels = financialData.incomes.map(item => item.category_name);
         const incomeValues = financialData.incomes.map(item => item.total_income);
 
+        if (!financialData.expenses.length || !financialData.incomes.length) {
+            console.log('trying to show help msg');
+            const synopsisDiv = document.getElementById('dashboard__synopsis');
+            const noDataMessage = document.createElement('p');
+            noDataMessage.textContent = "There is no financial data available yet.";
+            const more = document.createElement('p');
+            more.textContent = "Start by checking out the About page for more information. ";
+            synopsisDiv.appendChild(noDataMessage);
+            synopsisDiv.appendChild(more);
+        }
+
         renderChart(expenseCtx, expenseLabels, expenseValues, 'Expenses by Category');
         renderChart(incomeCtx, incomeLabels, incomeValues, 'Income by Category');
 
-        displayFinancialInfo(financialData.expenses, financialData.incomes);
+        displayFinancialInfo(financialData.expenses, financialData.incomes); // Display financial info
     } catch (error) {
         console.error('Failed to load financial data:', error);
     }
-	
-
-
 });
 
+// Function to fetch financial data from the server
 async function fetchFinancialData() {
     const response = await fetch('dashboard-handler.php');
     const data = await response.json();
-    return data;
+    return data; // Return the data received from the server
 }
 
+// Function to render pie charts using Chart.js
 function renderChart(ctx, labels, values, title) {
     new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: labels,
+            labels: labels, // Labels for the pie chart
             datasets: [{
                 label: title,
-                data: values,
+                data: values, // Data values for the pie chart
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -84,19 +90,18 @@ function renderChart(ctx, labels, values, title) {
             responsive: true,
             plugins: {
                 legend: {
-                    position: 'top',
+                    position: 'top', // Position of the legend
                 },
                 title: {
                     display: true,
-                    text: title
+                    text: title // Title of the chart
                 }
             }
         },
     });
 }
 
-
-
+// Function to load the dashboard content
 async function loadDashboard(content) {
     if (content) {
         // Init session variables as null until we can confirm they exist
@@ -135,7 +140,7 @@ async function loadDashboard(content) {
 
             const financialData = await fetchFinancialData();
             if (financialData.status === 'success') {
-                displayFinancialInfo(financialData.expenses, financialData.incomes);
+                displayFinancialInfo(financialData.expenses, financialData.incomes); // Show financial data
             } else {
                 console.error('Failed to load financial data:', financialData.message);
             }
@@ -156,47 +161,46 @@ async function loadDashboard(content) {
     }
 }
 
+// Function to display financial info
 function displayFinancialInfo(expenses, incomes) {
- 
-	const totalExpenses = calculateTotal(expenses, 'total_expenditure');
-	const totalIncomes = calculateTotal(incomes, 'total_income');	
+    const totalExpenses = calculateTotal(expenses, 'total_expenditure');
+    const totalIncomes = calculateTotal(incomes, 'total_income');    
 
-	const netIncome = totalIncomes - totalExpenses;
-    if (totalIncomes) {
-    savingsRate = ((netIncome / totalIncomes) * 100).toFixed(2);
-	} else {
-		savingsRate = 0;
-	}
-	
-	const totalSavings = netIncome; 
+    const netIncome = totalIncomes - totalExpenses;
+    const savingsRate = calculateSavingsRate(netIncome, totalIncomes);
+    const totalSavings = netIncome; 
 
     document.getElementById('net-income').textContent = `$${netIncome.toFixed(2)}`;
     document.getElementById('savings-rate').textContent = `${savingsRate}%`;
     document.getElementById('total-savings').textContent = `$${totalSavings.toFixed(2)}`;
 
     const expenseBreakdown = document.getElementById('expense-breakdown');
+    const incomeBreakdown = document.getElementById('income-breakdown');
+
+    // Clear existing items before adding new ones
+    expenseBreakdown.innerHTML = '';
+    incomeBreakdown.innerHTML = '';
+
     expenses.forEach(expense => {
         const li = document.createElement('li');
         li.textContent = `${expense.category_name}: $${expense.total_expenditure}`;
         expenseBreakdown.appendChild(li);
     });
 
-    const incomeBreakdown = document.getElementById('income-breakdown');
     incomes.forEach(income => {
         const li = document.createElement('li');
         li.textContent = `${income.category_name}: $${income.total_income}`;
         incomeBreakdown.appendChild(li);
     });
+}
 
-   }
-
-
+// Function to calculate total of an array of objects
 function calculateTotal(data, key) {
-	let total = 0;
+    let total = 0;
     for (let i = 0; i < data.length; i++) {
         total += parseFloat(data[i][key]);
     }
-	return total; 
+    return total; 
 }
 
 // Function to calculate savings rate
@@ -213,10 +217,7 @@ function updateFinancialDisplay(netIncome, savingsRate, totalSavings) {
 
 // Function to format number to currency
 function formatCurrency(amount) {
-	
-
-
-    return parseFloat(amount).toFixed(2);
+    return parseFloat(amount).toFixed(2); // format the amount to 2 decimal places
 }
 
 // Function to populate breakdown list
@@ -228,6 +229,7 @@ function populateBreakdown(element, data, key) {
     });
 }
 
+// Function to add event listeners
 function addEventListeners(logged_in) {
     const sitemap_button = document.getElementById('siteMapButton');
     if (sitemap_button) {
@@ -240,5 +242,4 @@ function addEventListeners(logged_in) {
 
     // If the page we are on is the dashboard, add event listeners to buttons in the dashboard
 }
-
 
