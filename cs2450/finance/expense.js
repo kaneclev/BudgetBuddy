@@ -14,8 +14,9 @@ $(document).ready(function() {
             selectElement.append(optionHtml);
         });
     }
-
+	loadCategories();
     function loadCategories() {
+		console.log('Trying to load the categories...');
         $.ajax({
             url: 'finance/expense-handler.php',
             type: 'GET',
@@ -25,6 +26,11 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     populateSelect($('#expense-category'), response.categories, 'category_id', 'category_name');
                     // Load expenses for the first category by default
+					if (response.categories.length > 0) {
+						const firstCategoryId = response.categories[0].category_id;
+					} else {
+						const firstCategoryId = null;
+					}
                     const firstCategoryId = response.categories.length > 0 ? response.categories[0].category_id : null;
                     if (firstCategoryId) {
                         loadExpensesByCategory(firstCategoryId);
@@ -154,6 +160,5 @@ $(document).ready(function() {
     });
 
     // Load categories and initial expenses when the page loads
-    loadCategories();
 });
 
