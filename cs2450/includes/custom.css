@@ -247,7 +247,8 @@ main .main__section {
 	box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
 
-	/* Dashboard Styling */
+
+/* Dashboard Styling */
 #dashboard {
     background-color: var(--soft-gray); /* Softer light gray */
     padding-top: 3rem; /* Add padding */
@@ -289,6 +290,40 @@ main .main__section {
 	object-fit: cover;
 	border-bottom-left-radius: 0.25em;
 	border-bottom-right-radius: 0.25em;
+}
+
+#charts-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+.chart {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.chart canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* styling for the additional content section */
+#additional-content {
+	margin-top: 20px;
+	padding: 20px;
+	background-color: var(--soft-gray);
+	border-radius: 8px;	
+
+}
+
+body {
+	overflow-y: scroll;
+	margin: 0;
+	padding: 0;
 }
 
 
