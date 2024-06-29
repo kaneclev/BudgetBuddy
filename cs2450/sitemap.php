@@ -161,7 +161,7 @@ margin: .5%;
 
 <section class="grader-notes">
 <h3>Notes to grader</h3>
-<p>Give me a brief descirption of the project</p>
+<p>A personal finance site that I came up with, was a lot of fun but a lot harder than I imagined! Please see the about page for a little more information...</p>
 </section>
 </section>
 <!-- ########################################### -->
