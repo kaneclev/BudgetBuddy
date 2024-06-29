@@ -14,12 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = trim($_POST['password']);
 
         try {
-            $stmt = $pdo->prepare('SELECT id, username, password FROM users WHERE username = :username');
+            $stmt = $pdo->prepare('SELECT user_id, username, password FROM users WHERE username = :username');
             $stmt->execute([':username' => $username]);
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['logged_in'] = true;
                 $response['success'] = true;

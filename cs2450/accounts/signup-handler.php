@@ -1,12 +1,8 @@
 <?php
-include('../includes/connect-DB.php');
 session_start();
-header('Content-Type: application/json');
-
-$response = [
-    'success' => false,
-    'errors' => []
-];
+require('../config.php');
+include(ROOT_PATH . 'finance/findb/init_tables.php');
+$response = ['errors' => [], 'success' => false];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['username_signup'], $_POST['password_signup'], $_POST['confirm_password_signup'])) {
@@ -30,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $password_hash = password_hash($signup_password, PASSWORD_BCRYPT);
 
             try {
-                $stmt = $pdo->prepare('SELECT id FROM users WHERE username = :username');
+                $stmt = $pdo->prepare('SELECT user_id FROM users WHERE username = :username');
                 $stmt->execute([':username' => $signup_username]);
                 if ($stmt->rowCount() > 0) {
                     $response['errors'][] = 'Username already taken.';
@@ -40,21 +36,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ':username' => $signup_username,
                         ':password' => $password_hash,
                     ]);
-				    $response['success'] = true;
-					$_SESSION['logged_in'] = true;
-					
-				}
+                    $user_id = $pdo->lastInsertId(); // Get the newly created user's ID
+                    $response['success'] = true;
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['user_id'] = $user_id; // Store the user ID in the session
+
+                    // You can add additional initialization here if needed for the new user
+                }
             } catch (PDOException $e) {
                 $response['errors'][] = $e->getMessage();
             } catch (Exception $e) {
-				$response['errors'][] = 'An unexpected error occurred. Please try again later.';
-				error_log($e->getMessage());
-			}
+                $response['errors'][] = 'An unexpected error occurred. Please try again later.';
+                error_log($e->getMessage());
+            }
         }
     }
 }
-
+header('Content-Type: application/json');
 echo json_encode($response);
-exit();
 ?>
-

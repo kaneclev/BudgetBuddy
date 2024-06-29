@@ -1,6 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/cs2450/config.php');
-include(ROOT_PATH . 'includes/top.php');
+include('../includes/top.php');
 
 session_start();
 $errors = [];
@@ -39,7 +38,7 @@ $errors = [];
 				renderFormEnd('Log In', 'login__form__button');
 			?>   
         </div>
-		<div class="login__separator">
+		<div class="login__separator"></div>
 		<div class="signup__container">
 			<h2>Sign Up</h2>
 			<div class="error"></div>
@@ -50,6 +49,14 @@ $errors = [];
 				renderTextInputField('text', 'username_signup', 'username_signup', 'Username:');
 				renderTextInputField('password', 'password_signup', 'password_signup', 'Password:');
 				renderTextInputField('password', 'confirm_password_signup', 'confirm_password_signup', 'Confirm Password:');
+				echo '<div class="form_group email_group">';
+				echo '<label for="email_signup">Email (Optional):' ;
+				echo	'<span class="tooltip" title="Providing an email will allow notifications. ">';
+				echo '<img src="/cs2450/design/tooltip.svg" alt="Tooltip Icon" class="tooltip_icon">';
+				echo  '</label>';
+				echo '</div>';
+			
+				renderTextInputField('email', 'email_signup', 'email_signup', '', false);
 				renderFormEnd('Sign Up', 'signup__form__button');	
 			?>
 		</div>

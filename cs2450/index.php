@@ -43,7 +43,12 @@ include('includes/top.php');
 
         <div id="additional-content">
             <h3>Additional Information</h3>
-            <p></p>
+            <h4>How to Interpret Your Financial Overview</h4>
+			<p>This dashboard provides a snapshot of your financial health. 
+				The pie charts illustrate your expenses and income by category, allowing you to see where your money is going and coming from. 
+				Below, key metrics such as Monthly Net Income, Monthly Savings Rate, and Total Savings are displayed. 
+				Expense Breakdown and Income Breakdown lists offer insights into exactly what you're spending your money on. 
+				Use this information to understand your spending habits, identify saving opportunities, and make informed financial decisions.</p>
         </div>
 </main>
 

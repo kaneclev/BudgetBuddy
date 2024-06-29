@@ -116,7 +116,7 @@ $(document).ready(function() {
             success: function(response) {
 				console.log('AJAX success response:', response);
                 errorContainer.empty(); // Clear previous errors
-
+				console.log('here is the response: ', response);
                 if (response.success) {
                     
 
@@ -130,6 +130,7 @@ $(document).ready(function() {
 							},
 							dataType: 'json',
 							success: function(response) {
+								console.log('I GOT A SUCCESS RESPONSE AFTER TRYING TO LOG IN');
 								console.log('AJAX success response:', response);
 								errorContainer.empty(); // Clear previous errors
 

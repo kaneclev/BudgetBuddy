@@ -116,8 +116,11 @@ margin: .5%;
 <h2 class="header">Final Project - <em>Budget Buddy</em>.</h2>
 <section class="public-files">
 <h3>Public Files</h3>
-<p><a href="live-final/about.php">About page</a></p>
-
+<p><a href="design/about.php">About page (also the detail page wrapped in one)</a></p>
+<p><a href="accounts/login.php">Login/Signup</a></p>
+<p><a href="index.php">Dashboard/Homepage</a></p>
+<p><a href="finance/expense.php">Expense</a></p>
+<p><a href="finance/income.php">Income</a></p>
 <p><a>Array pages</a></p>
 <div class="left-indent">
 <p><a href="finance/budget.js">budget.js</a></p>
@@ -127,11 +130,10 @@ margin: .5%;
 <div class="left-indent">
 <p><a>Basically all of the js scripts have some form of AJAX or JQuery (exchanging financial info, user info, etc.)</p></a>
 </div>
-<p><a href="live-final/detail.php">Detail page</a></p>
 <p><a>Form pages</a></p>
 	<div class="left-indent">
 		<p><a href="accounts/login.php">Login Page</a></p>
-		<p><a> NOTE: the following are only supposed to be accessed after login, so to test form validation, please sign up with a random account. </a></p>	
+		<p><a> NOTE: the following are only supposed to be accessed after login, so to test form validation, please log in with the account: username: grader password: grading , or make an account. </a></p>	
 		<p><a href="finance/budget.php">Budget Page</a></p>
 		<p><a href="finance/expense.php">Expense Page</a></p>
 		<p><a href="finance/income.php">Income Page</a></p>
@@ -141,11 +143,10 @@ margin: .5%;
 
 <section class="supporting-files">
 <h3>Supporting files</h3>
-<p><a href="live-final/css/custom.css">css style sheet</a></p>
-<p><a href="final/css/layout-desktop.css">desktop style sheet</a></p>
-<p><a href="final/css/layout-tablet.css">tablet style sheet</a></p>
-<p><a href="final/css/layout-phone.css">phone style sheet</a></p>
-<p><a href="final/images/wireframe.png">Wireframe</a></p>
+<p><a href="includes/custom.css">Desktop/Main Style Sheet</a></p>
+<p><a href="includes/tablet.css">Tablet Style Sheet</a></p>
+<p><a href="includes/smartphone.css">Smartphone Style Sheet</a></p>
+<p><a href="design/desktop-general-wireframe.png">Wireframe</a></p>
 <h3>SQL query list</h3>
 <p><a href="sql.php">SQL List</a></p>
 <h3>JavaScript</h3>
