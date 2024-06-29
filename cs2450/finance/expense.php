@@ -21,7 +21,7 @@ require("../includes/form.php");
                 renderFormStart('expense-form', 'finance/expense-handler.php', 'POST');
                 echo '<input type="hidden" name="action" value="add_expense">';
                 renderTextInputField('text', 'expense-name', 'expense_name', 'Expense Name:', true);
-                renderTextInputField('number', 'monthly-cost', 'monthly_cost', 'Monthly Cost:', true, 'decimal');
+                renderTextInputField('number', 'monthly-cost', 'monthly_cost', 'Monthly Cost:', true);
 				renderFormEnd('Add Expense', 'add-expense-btn');
 				
 			?>
@@ -31,7 +31,6 @@ require("../includes/form.php");
 			<div class="error"></div>
         </div>
 
-        <div id="delete-expense-form">
             <?php
                 renderFormStart('delete-expense-form', 'finance/expense-handler.php', 'POST');
                 echo '<input type="hidden" name="action" value="delete_expense">';
@@ -44,7 +43,6 @@ require("../includes/form.php");
             <?php
                 renderFormEnd('Delete', 'delete-expense-btn');
             ?>
-        </div>
 
         <!-- New Container for Expenses by Category -->
         <div id="expenses-by-category">

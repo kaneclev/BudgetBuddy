@@ -21,13 +21,12 @@ require("../includes/form.php");
                 renderFormStart('income-form', 'finance/income-handler.php', 'POST');
                 echo '<input type="hidden" name="action" value="add_income">';
                 renderTextInputField('text', 'income-name', 'income_name', 'Income Name:', true);
-                renderTextInputField('number', 'monthly-income', 'monthly_income', 'Monthly Income:', true, 'decimal');
+                renderTextInputField('number', 'monthly-income', 'monthly_income', 'Monthly Income:', true);
 				renderFormEnd('Add Income', 'add-income-btn');
             ?>
             <div class="error"></div>
         </div>
 
-        <div id="delete-income-form">
             <?php
                 renderFormStart('delete-income-form', 'finance/income-handler.php', 'POST');
                 echo '<input type="hidden" name="action" value="delete_income">';
@@ -40,7 +39,6 @@ require("../includes/form.php");
             <?php
                 renderFormEnd('Delete', 'delete-income-btn');
             ?>
-        </div>
 
         <!-- New Container for Income by Category -->
         <div id="income-by-category">

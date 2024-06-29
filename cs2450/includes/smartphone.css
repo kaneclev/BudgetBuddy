@@ -1,60 +1,58 @@
+/* SMARTPHONE VERSION */
 @media (max-width: 480px) {
-
-html, body {
-	overflow: hidden;
-	height: 100%;
-}	
-
-body {
-	min-height: 100vh;
-}
-
-main {
-	width: 100%;
-	overflow: auto;
-	align-items: center;
-	margin-top: 8vh;
-	box-sizing: border-box;
-	padding-top: 8vh;	
-	padding-bottom: 8vh;
-	position: absolute;
-}
-
-.main-header {
-    justify-content: center;
-	align-items: center;
-	padding: 3vh;
-	position: fixed;
-	height: 4vh;
-}
-
-#content {
-		height: 100%;
-		padding-top: 34vh;
-		padding-bottom: 15vh;
-		flex-direction: column;
-		align-items: center;
-		width: 100%;
-		overflow: auto;
-}
-
-
-	.header-content {
-		flex-direction: row;
-		justify-content: space-between;
-	}
-
-    .header-content h1 {
-        font-size: 3vh;
-		position: center;
+    body {
+        overflow-y: scroll; /* Ensure the body is scrollable */
     }
-	
-	
-	.main-header #login-signup-btn {
-		margin-left: auto;
-		font-size: 2vh;
-		padding: 1vh 2vh;
-	}
+
+    main {
+        width: 100%;
+        overflow: auto;
+        align-items: center;
+        margin-top: 8vh;
+        padding-top: 8vh;
+        padding-bottom: 8vh;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+    .main-header {
+        justify-content: center;
+        align-items: center;
+        padding: 3vh;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 10;
+        height: 8vh;
+        background-color: var(--primary-color);
+    }
+
+    .main-header h1 {
+        font-size: 3vh;
+        margin: 0;
+        color: var(--white);
+    }
+
+    .main-header #login-signup-btn {
+        margin-left: auto;
+        font-size: 2vh;
+        padding: 1vh 2vh;
+    }
+
+    #content {
+        padding-top: 34vh;
+        padding-bottom: 15vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 
     .dashboard {
         padding: 5px;
@@ -64,14 +62,16 @@ main {
         margin: 5px 0;
         padding: 5px;
     }
-	
-	nav {
-		position: fixed;
-		padding: 1vh 0;
-		top: 8vh;
-		height: 2.7vh;
 
-	}	
+    nav {
+        position: fixed;
+        padding: 1vh 0;
+        top: 8vh;
+        width: 100%;
+        height: auto;
+        background-color: var(--secondary-color);
+        z-index: 9; /* Ensure nav is above other content */
+    }
 
     nav ul {
         text-align: center;
@@ -82,52 +82,71 @@ main {
         margin: 0 0.5vh;
     }
 
-	footer {
-		padding: 5px 0;
-		position: fixed;
-		bottom: 0;
+    footer {
+        padding: 5px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+    }
 
-	}
-	
-	.siteMapButton {
-		font-size: 12px;
-		padding: 5px 10px;
-	}
-
-
+    .siteMapButton {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
 
     /* Login page styling */
     .forms-container {
-		display: flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
-		width: 100%;
-		margin-top: 3vh;
-		margin-bottom: 0;
-		position: relative;
-	}
+        width: 100%;
+        margin-top: 3vh;
+        margin-bottom: 0;
+    }
 
     .login-container,
     .signup-container {
-        width: 90%;
-		margin: 3vh 3vh;
-		padding: 1.5vh;
-		box-sizing: border-box;
-	}
-	.login-container {
-		margin-top: 8vh;
-	}
-	.login-container #loginForm {
-		position: relative;	
-	}
+        width: 95%; /* Adjusted to fit within the container */
+        max-width: 400px; /* Added max-width for better fit */
+        margin: 2vh auto; /* Center the containers */
+        padding: 2vh;
+        box-sizing: border-box;
+    }
 
-	.or-container {
-		display: block;
-		top: 1vh;
-		bottom: 1vh;
-		margin: 2vh 0;
-		font-size: 4vw;
-	}	
+    .login-container {
+        margin-top: 8vh;
+    }
+
+    .signup-container {
+        margin-bottom: 8vh;
+    }
+
+    .login-separator {
+        height: 3vh;
+    }
+
+    .or-container {
+        display: block;
+        margin: 2vh 0;
+        font-size: 4vw;
+        text-align: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5vh;
+    }
+
+    input {
+        padding: 1vh;
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 1vh;
+        font-size: 1rem;
+    }
 }
-
 

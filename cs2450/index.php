@@ -3,7 +3,7 @@ include('includes/top.php');
 ?>
 
 <main>
-        <div id="dashboard" root_path="/cs2450/">
+        <div id="dashboard">
             <div id="dashboard__header">
                 <h2 id="welcome__message">Welcome back, ${username}</h2>
             </div>

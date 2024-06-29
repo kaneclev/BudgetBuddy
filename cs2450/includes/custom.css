@@ -1,33 +1,18 @@
-/* 
-INFO
-----
-- This is a total remake for my CSS for this site.
-	- Why?
-		- My flex layout and my disorganization made it essentially impossible to build off of what i had.
-	- How?
-		- We are switching to grid layout, and we are making more flexible styling 
-				- what do i mean by flexible?
-					- There will be clearer parent style classes for elements. 
-					- Styling will be more organized and modular. 
-					- Elements will have a styling defined by me (default) and then i can change it. Like inheritance.
-					- We will be implementing variables for easy reusability.
-*/
 
 
-
-/* ROOT STYLE DEFINITIONS */
+	/* ROOT STYLE DEFINITIONS */
 /* Some base declarations. */
 :root {
-	--base-spacing: 2vw;
-    --primary-color: #2c3e50; /* Darker blue-gray */
-    --secondary-color: #34495e; /* Slightly lighter blue-gray */
-    --accent-color: #e74c3c; /* Red for accents */
+    --base-spacing: 2vw;
+    --primary-color: #2c3e50;
+    --secondary-color: #34495e;
+    --accent-color: #e74c3c;
     --soft-gray: #ded9d9;
-	--light-gray: #ecf0f1; /* Very light gray */
-    --dark-gray: #95a5a6; /* Mid-tone gray */
+    --light-gray: #ecf0f1;
+    --dark-gray: #95a5a6;
     --white: #ffffff;
-	--black: #000000; 
-	--font-family: 'Inter', sans-serif;
+    --black: #000000;
+    --font-family: 'Inter', sans-serif;
     --heading-font-family: 'Montserrat', sans-serif;
     --base-font-size: 1rem;
     --button-font-size: 1rem;
@@ -35,58 +20,50 @@ INFO
         -.05em -.05em 0 #000,
          .05em -.05em 0 #000,
         -.05em  .05em 0 #000,
-         .05em  .05em 0 #000; /* Four shadows to create an outline effect */
+         .05em  .05em 0 #000;
 }
 
-
-/*  Defining global styling (for consistency).  */
+/* Global styling */
 * {
     margin: 0;
     padding: 0;
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-/** STARTING DIRECT CONTENT STYLING **/
-
-
-/* Body styling (variables help for flexibility...)  */
+/* Body styling */
 body {
-	/* Positioning */
-	display: grid;
-	grid-template-rows: auto auto 1fr auto;
-	min-height: 100vh;
-	/* Styling */
-	font-family: var(--font-family);
-	background-color: var(--light-gray);
-	color: var(--primary-color);
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh;
+    font-family: var(--font-family);
+    background-color: var(--light-gray);
+    color: var(--primary-color);
 }
 
-
-/* Header Styling */
+/* Header styling */
 .header {
     display: grid;
-    grid-template-columns: auto 1fr auto; /* Three columns */
-    align-items: center; /* Center items vertically */
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
     width: 100%;
     background-color: var(--primary-color);
     color: var(--white);
     padding: calc(0.5 * var(--base-spacing));
 }
 .header__content {
-	display: contents;
+    display: contents;
 }
 .header__title {
-	/* Position */
-	white-space: nowrap;
-	margin: 0;	
-	user-select: none;
-	font-size: calc(1vw + 1vh);
-	font-family: var(--heading-font-family);
-	text-shadow: 
-        -3px -3px 0 #000,  
+    white-space: nowrap;
+    margin: 0;
+    user-select: none;
+    font-size: calc(1vw + 1vh);
+    font-family: var(--heading-font-family);
+    text-shadow: 
+        -3px -3px 0 #000,
          3px -3px 0 #000,
         -3px  3px 0 #000,
-         3px  3px 0 #000; /* Four shadows to create an outline effect */
+         3px  3px 0 #000;
 }
 
 /* NavBar Styling */
@@ -102,8 +79,8 @@ body {
     text-decoration: none;
     border: none;
     transition: background-color 0.3s ease, opacity 0.3s ease;
-	justify-self: end; 
-	margin-left: var(--base-space);
+    justify-self: end;
+    margin-left: var(--base-space);
 }
 .login__button:hover {
     opacity: 0.9;
@@ -115,106 +92,88 @@ body {
     background-color: #c0392b;
 }
 
-
-
-
 .nav {
     background-color: var(--secondary-color);
     text-align: center;
     padding: 0.5rem;
-    display: grid; /* Use grid for the nav */
-    grid-template-columns: 1fr; /* Single column */
-}	
+    display: grid;
+    grid-template-columns: 1fr;
+}
 .nav__list {
     list-style: none;
-    display: grid; /* Use grid for nav items */
-    grid-auto-flow: column; /* Arrange items in a row */
-    justify-content: center; /* Center nav items */
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
     padding: 0;
     margin: 0;
 }
 .nav__item {
-	margin: 0 2em;
+    margin: 0 2em;
 }
 .nav__link {
-	color: var(--white);
-	text-decoration: none;
-	font-size: 1rem;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1rem;
 }
 .nav__link--active {
-	font-weight: bold;
+    font-weight: bold;
 }
-
-
-
-
 
 /* Reusable Class Definitions */
-
-
-/* Abstract Button Definition */
 .button {
-	display: inline-block; 
-	padding: 0.5em 1em;
-	border-radius: 0.25em;
-	text-align: center;
-	cursor: pointer;
-	font-size: var(--button-font-size);
-	color: var(--white); 
-	text-decoration: none;
-	border: none;
-	transition: background-color 0.3s ease, opacity 0.3s ease;
+    display: inline-block;
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    text-align: center;
+    cursor: pointer;
+    font-size: var(--button-font-size);
+    color: var(--white);
+    text-decoration: none;
+    border: none;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
 }
-
-/* Slightly less abstract button def;
- we decide what 'category' our buttons will fall under as we dev. 
-More flexible. */
 
 /* Primary Button */
 .button--primary {
-	cursor: pointer;
-	background-color: var(--accent-color);
+    cursor: pointer;
+    background-color: var(--accent-color);
 }
 .button--primary:hover {
-	cursor: pointer;
-	opacity: 0.9;
+    cursor: pointer;
+    opacity: 0.9;
 }
 .button--primary:focus {
-	outline: 2px solid var(--accent-color);
-	outline-offset: 2px;
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
 }
 .button--primary:active {
-	background-color: #c0392b;
+    background-color: #c0392b;
 }
 .button--primary:disabled {
-	background-color: lightgray;
-	cursor: not-allowed;
+    background-color: lightgray;
+    cursor: not-allowed;
 }
 
 /* Secondary Button */
 .button--secondary {
-	background-color: var(--dark-gray);
+    background-color: var(--dark-gray);
 }
 .button--secondary:hover {
-	opacity: 0.9;
+    opacity: 0.9;
 }
 .button--secondary:focus {
-	outline: 2px solid var(--dark-gray);
-	outline-offset: 2px;
+    outline: 2px solid var(--dark-gray);
+    outline-offset: 2px;
 }
 .button--secondary:active {
-	background-color: #7f8c8d;
+    background-color: #7f8c8d;
 }
 .button--secondary:disabled {
-	background-color: lightgray;
-	cursor: not-allowed;
+    background-color: lightgray;
+    cursor: not-allowed;
 }
 
-
-
-
 /* Form Abstract Styling */
-	
 form {
     display: grid;
     gap: 1rem;
@@ -231,68 +190,65 @@ input {
     font-size: 1rem;
 }
 
-/* MAIN CONTENT STYLING */
-
+/* Main Content Styling */
 main {
-	display: grid;
-	grid-template-columns: 1fr;
-	gap: var(--base-spacing);
-	padding: var(--base-spacing);
-	background: linear-gradient(to right, var(--dark-gray), var(--light-gray) 50%, var(--dark-gray));
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--base-spacing);
+    padding: var(--base-spacing);
+    background: linear-gradient(to right, var(--dark-gray), var(--light-gray) 50%, var(--dark-gray));
 }
 main .main__section {
-	background-color: var(--white);
-	padding: calc(0.75 * var(--base-spacing));
-	border-radius: 0.5em;
-	box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    background-color: var(--white);
+    padding: calc(0.75 * var(--base-spacing));
+    border-radius: 0.5em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
-
 
 /* Dashboard Styling */
 #dashboard {
-    background-color: var(--soft-gray); /* Softer light gray */
+    background-color: var(--soft-gray);
     padding: 2rem 1rem 3rem 1rem;
-    border-radius: 0.25em; /* Rounded corners */
-    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1); /* Slight elevation effect */
-	position: relative;
-	display: grid;
-	grid-template-rows: auto auto auto auto;
-	gap: var(--base-spacing);
+    border-radius: 0.25em;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    gap: var(--base-spacing);
 }
 
 #dashboard__header {
-	margin-left: var(--base-spacing));
-	position: absolute;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-	height: 2em;
-	border-top-right-radius: 0.25em;
+    height: 2em;
+    border-top-right-radius: 0.25em;
     border-top-left-radius: 0.25em;
-	background-color: var(--primary-color);
+    background-color: var(--primary-color);
     color: var(--white);
-    z-index: 1000; /* Ensure it stays above other content */
+    z-index: 1000;
 }
 
 #dashboard__header #welcome__message {
-	margin-left: var(--base-spacing);
+    margin-left: var(--base-spacing);
 }
 
 .dashboard__graphic {
-	width: 100%;
-	height: 1em;
-	position: relative;
+    width: 100%;
+    height: 1em;
+    position: relative;
 }
 
 .dashboard__banner {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 2em;
-	object-fit: cover;
-	border-bottom-left-radius: 0.25em;
-	border-bottom-right-radius: 0.25em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2em;
+    object-fit: cover;
+    border-bottom-left-radius: 0.25em;
+    border-bottom-right-radius: 0.25em;
 }
 
 #charts-container {
@@ -315,42 +271,36 @@ main .main__section {
 }
 
 #financial-info {
-	margin-top: 20px;
-	padding: 20px;
-	background-color: #eaeaea;
-	border-radius: 8px;
-	grid-column: span 2;
-
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #eaeaea;
+    border-radius: 8px;
+    grid-column: span 2;
 }
 #financial-info h3 {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
-
-/* styling for the additional content section */
+/* Additional Content Section Styling */
 #additional-content {
-	margin-top: 20px;
-	padding: 20px;
-	background-color: var(--soft-gray);
-	border-radius: 8px;	
-
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--soft-gray);
+    border-radius: 8px;
 }
 
 body {
-	overflow-y: scroll;
-	margin: 0;
-	padding: 0;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
 }
-
-
-
 
 /* LOGIN.PHP STYLING */
 .login__container, .signup__container {
     max-width: 50vw;
-	width: 100%;
-	margin: 0 auto;
-	background-color: var(--soft-gray);
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--soft-gray);
     padding: 2rem;
     border-radius: 0.5em;
     box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
@@ -358,14 +308,13 @@ body {
 }
 
 .form_group {
-	margin-bottom: 1em;
+    margin-bottom: 1em;
 }
-
 
 .email_group {
     display: grid;
     gap: 0.5em;
-    grid-template-columns: auto 1fr auto; /* Align label, input, and tooltip */
+    grid-template-columns: auto 1fr auto;
     align-items: center;
 }
 
@@ -378,9 +327,9 @@ body {
     display: inline-block;
     position: relative;
     cursor: pointer;
-    color: #007BFF; /* Default color for the tooltip icon */
+    color: #007BFF;
     margin-left: 5px;
-    font-size: 1.2em; /* Adjust size if needed */
+    font-size: 1.2em;
 }
 
 .form_group input,
@@ -394,7 +343,7 @@ body {
 .tooltip:hover::after {
     content: attr(title);
     position: absolute;
-    bottom: 125%; /* Adjust as needed */
+    bottom: 125%;
     left: 50%;
     transform: translateX(-50%);
     background-color: #333;
@@ -417,7 +366,7 @@ body {
 }
 
 .tooltip_icon {
-    width: 1em; /* Adjust size if needed */
+    width: 1em;
     height: 1em;
 }
 
@@ -425,28 +374,27 @@ body {
 }
 
 #login__form__button {
-	border-radius: 0.25em;	
+    border-radius: 0.25em;
     background-color: var(--accent-color);
     color: var(--black);
     width: 100%;
-	max-width: 10rem; /* Ensure the button does not exceed a certain width */
-    margin: 0 auto; /* Center the button */
-    padding: 1rem 2rem; /* Increase the vertical padding */
+    max-width: 10rem;
+    margin: 0 auto;
+    padding: 1rem 2rem;
 }
 
-
 #signup__form__button {
-	border-radius: 0.25em;	
-	background-color: var(--secondary-color);
+    border-radius: 0.25em;
+    background-color: var(--secondary-color);
     color: var(--white);
-	width: 100%;    
-	max-width: 10rem; /* Ensure the button does not exceed a certain width */
-    margin: 0 auto; /* Center the button */
-    padding: 1rem 2rem; /* Increase the vertical padding */
+    width: 100%;
+    max-width: 10rem;
+    margin: 0 auto;
+    padding: 1rem 2rem;
 }
 
 .error {
-	color: red;
+    color: red;
 }
 
 /* FOOTER STYLING */
@@ -461,10 +409,10 @@ body {
 
 .footer .sitemap {
     position: absolute;
-    bottom: calc(0.5 * var(--base-spacing)); /* Slightly above the bottom */
-    left: calc(0.5 * var(--base-spacing)); /* Slightly inside the left edge */
-    font-size: 0.75rem; /* Subtle font size */
-    color: var(--dark-gray); /* Subtle color */
+    bottom: calc(0.5 * var(--base-spacing));
+    left: calc(0.5 * var(--base-spacing));
+    font-size: 0.75rem;
+    color: var(--dark-gray);
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -475,42 +423,7 @@ body {
     color: inherit;
 }
 
-
 .footer .sitemap:hover {
     color: var(--light-gray);
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -51,7 +51,7 @@ $errors = [];
 				renderTextInputField('password', 'confirm_password_signup', 'confirm_password_signup', 'Confirm Password:');
 				echo '<div class="form_group email_group">';
 				echo '<label for="email_signup">Email (Optional):' ;
-				echo	'<span class="tooltip" title="Providing an email will allow notifications. ">';
+				echo	'<span class="tooltip" title="Providing an email will allow notifications. "></span>';
 				echo '<img src="/cs2450/design/tooltip.svg" alt="Tooltip Icon" class="tooltip_icon">';
 				echo  '</label>';
 				echo '</div>';
