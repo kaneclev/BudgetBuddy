@@ -42,6 +42,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
 					?>"
                class="nav__link <?php if ($current_page == 'budget.php') { echo 'nav__link--active'; } ?>">Budget</a>
         </li>
+		<li class="nav__item">
+			<a href="<?php echo $baseUrl . 'design/about.php' ?>" class="nav__link" <?php if ($current_page == 'about.php') { echo 'nav__link--active'; }?>>About</a>
+		</li>
         </ul>
 
 </nav>
