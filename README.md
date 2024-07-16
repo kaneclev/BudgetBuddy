@@ -26,7 +26,7 @@ Welcome to Budget Buddy, your personal finance management tool.
 2. **Set Up Categories**: Use the Budget page to define your expense and income categories.
 3. **Log Entries**: Record your expenses and income in their respective categories.
 4. **Monitor Your Finances**: Visit the Dashboard to view detailed statistics and charts about your financial information.
-
+![image](https://github.com/user-attachments/assets/b7aeab99-d8f1-4a13-9f16-5cdbf040b0cd)
 ## Usage
 
 1. **Create Expense and Income Categories**:
@@ -53,4 +53,4 @@ Welcome to Budget Buddy, your personal finance management tool.
 Thank you for using Budget Buddy! We hope it helps you manage your finances effectively.
 
 
-![image](https://github.com/user-attachments/assets/b7aeab99-d8f1-4a13-9f16-5cdbf040b0cd)
+
