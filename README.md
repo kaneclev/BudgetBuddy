@@ -16,7 +16,7 @@ Welcome to [Budget Buddy](https://kmclevel.w3.uvm.edu/cs2450/), your personal fi
 
 ### Dashboard
 - **Financial Overview**: As you log your expenses and income, the dashboard will dynamically populate with statistics and charts, providing a clear overview of your financial situation.
-![Dashboard Charts](https://github.com/kaneclev/CS2450/blob/main/Screenshot%202024-07-16%20182123.jpg?raw=true)
+![Dashboard Charts](https://raw.githubusercontent.com/kaneclev/BudgetBuddy/9fd3097916cead74aa8039c38620b10a550d5e24/Screenshot%202024-07-16%20183205.jpg)
 ### Account Management
 - **Persistent Data**: By creating an account, all your financial data is securely stored, allowing you to return and access your information anytime in the same state.
 
@@ -26,7 +26,8 @@ Welcome to [Budget Buddy](https://kmclevel.w3.uvm.edu/cs2450/), your personal fi
 2. **Set Up Categories**: Use the Budget page to define your expense and income categories.
 3. **Log Entries**: Record your expenses and income in their respective categories.
 4. **Monitor Your Finances**: Visit the Dashboard to view detailed statistics and charts about your financial information.
-![image](https://github.com/user-attachments/assets/b7aeab99-d8f1-4a13-9f16-5cdbf040b0cd)
+
+![image](https://raw.githubusercontent.com/kaneclev/BudgetBuddy/9fd3097916cead74aa8039c38620b10a550d5e24/Screenshot%202024-07-16%20183205.jpg)
 ## Usage
 
 1. **Create Expense and Income Categories**:
