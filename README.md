@@ -3,6 +3,7 @@
 # Budget Buddy
 
 Welcome to [Budget Buddy](https://kmclevel.w3.uvm.edu/cs2450/), your personal finance management tool. 
+
 (Work By Kane Cleveland)
 ## Features
 
