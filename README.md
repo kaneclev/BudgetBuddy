@@ -27,7 +27,7 @@ Welcome to [Budget Buddy](https://kmclevel.w3.uvm.edu/cs2450/), your personal fi
 3. **Log Entries**: Record your expenses and income in their respective categories.
 4. **Monitor Your Finances**: Visit the Dashboard to view detailed statistics and charts about your financial information.
 
-![image](https://raw.githubusercontent.com/kaneclev/BudgetBuddy/9fd3097916cead74aa8039c38620b10a550d5e24/Screenshot%202024-07-16%20183205.jpg)
+![image]([https://raw.githubusercontent.com/kaneclev/BudgetBuddy/9fd3097916cead74aa8039c38620b10a550d5e24/Screenshot%202024-07-16%20183205.jpg](https://github.com/kaneclev/BudgetBuddy/blob/main/Screenshot%202024-07-16%20183151.jpg?raw=true))
 ## Usage
 
 1. **Create Expense and Income Categories**:
