@@ -2,7 +2,7 @@
 ## Personal Finance/Budget Tracker
 # Budget Buddy
 
-Welcome to Budget Buddy, your personal finance management tool. 
+Welcome to [Budget Buddy](https://kmclevel.w3.uvm.edu/cs2450/), your personal finance management tool. 
 
 ## Features
 
