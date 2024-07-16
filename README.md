@@ -16,7 +16,7 @@ Welcome to Budget Buddy, your personal finance management tool.
 
 ### Dashboard
 - **Financial Overview**: As you log your expenses and income, the dashboard will dynamically populate with statistics and charts, providing a clear overview of your financial situation.
-
+![Dashboard Charts](https://github.com/kaneclev/CS2450/blob/main/Screenshot%202024-07-16%20182123.jpg?raw=true)
 ### Account Management
 - **Persistent Data**: By creating an account, all your financial data is securely stored, allowing you to return and access your information anytime in the same state.
 
@@ -52,5 +52,5 @@ Welcome to Budget Buddy, your personal finance management tool.
 
 Thank you for using Budget Buddy! We hope it helps you manage your finances effectively.
 
-![Dashboard Charts](https://github.com/kaneclev/CS2450/blob/main/Screenshot%202024-07-16%20182123.jpg?raw=true)
+
 ![image](https://github.com/user-attachments/assets/b7aeab99-d8f1-4a13-9f16-5cdbf040b0cd)
